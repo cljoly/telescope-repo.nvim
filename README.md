@@ -26,4 +26,6 @@ TODO: others
 
 ### list
 
+`:Telescope ghq_list`
+
 Running `ghq list` and list repositories' paths. When you input `<CR>`, it runs `builtin.git_files` on the repo.
