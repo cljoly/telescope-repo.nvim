@@ -39,6 +39,7 @@ M.list = function(opts)
       local selection = actions.get_selected_entry()
       actions.close(prompt_bufnr)
       require'telescope.builtin'.git_files{cwd = selection.value}
+      return true
     end,
   }):find()
 end
