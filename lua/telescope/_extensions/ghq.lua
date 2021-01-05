@@ -34,7 +34,7 @@ M.ghq = function(opts)
       end,
       sorter = conf.file_sorter(opts),
     },
-  })
+  }):find()
 end
 
 return M
