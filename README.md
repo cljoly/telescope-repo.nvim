@@ -13,7 +13,7 @@ use{
     'delphinus/telescope-ghq.nvim',
   },
   config = function()
-    telescope.load_extension'ghq'
+    require'telescope'.load_extension'ghq'
   end,
 }
 ```
