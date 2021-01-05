@@ -32,8 +32,8 @@ M.list = function(opts)
         end
         return {'echo', ''}
       end,
-      sorter = conf.file_sorter(opts),
     },
+    sorter = conf.file_sorter(opts),
   }):find()
 end
 
