@@ -35,10 +35,12 @@ M.list = function(opts)
       end,
     },
     sorter = conf.file_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
-      local selection = actions.get_selected_entry()
-      actions.close(prompt_bufnr)
-      require'telescope.builtin'.git_files{cwd = selection.value}
+    attach_mappings = function()
+      actions.goto_file_selection_edit:replace(function(prompt_bufnr)
+        local selection = actions.get_selected_entry()
+        actions.close(prompt_bufnr)
+        require'telescope.builtin'.git_files{cwd = selection.value}
+      end)
       return true
     end,
   }):find()
