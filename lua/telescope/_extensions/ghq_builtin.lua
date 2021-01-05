@@ -16,7 +16,7 @@ M.list = function(opts)
     ),
     previewer = previewers.new_termopen_previewer{
       get_command = function(entry)
-        -- TODO: deal with another README
+        -- TODO: deal with other README's
         local readme
         for _, name in pairs{'README', 'README.md'} do
           local path = entry.value..'/'..name
