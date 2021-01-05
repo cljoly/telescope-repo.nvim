@@ -29,7 +29,12 @@ M.list = function(opts)
           end
         end
         if readme then
-          return {'bat', '--style', 'header,grid', readme}
+          if vim.fn.executable'glow' then
+            return {'glow', readme}
+          elseif vim.fn.executable'bat' then
+            return {'bat', '--style', 'header,grid', readme}
+          end
+          return {'cat', readme}
         end
         return {'echo', ''}
       end,
