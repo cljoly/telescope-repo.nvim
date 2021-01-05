@@ -1,3 +1,4 @@
+local actions = require'telescope.actions'
 local conf = require'telescope.config'.values
 local finders = require'telescope.finders'
 local pickers = require'telescope.pickers'
@@ -34,6 +35,11 @@ M.list = function(opts)
       end,
     },
     sorter = conf.file_sorter(opts),
+    attach_mappings = function(prompt_bufnr)
+      local selection = actions.get_selected_entry()
+      actions.close(prompt_bufnr)
+      require'telescope.builtin'.git_files{cwd = selection.value}
+    end,
   }):find()
 end
 
