@@ -28,7 +28,7 @@ M.list = function(opts)
           end
         end
         if readme then
-          return {'bat', readme}
+          return {'bat', '--style', 'header,grid', readme}
         end
         return {'echo', ''}
       end,
