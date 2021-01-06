@@ -28,9 +28,9 @@ M.list = function(opts)
           end
         end
         if readme then
-          if vim.fn.executable'glow' then
+          if vim.fn.executable'glow' == 1 then
             return {'glow', readme}
-          elseif vim.fn.executable'bat' then
+          elseif vim.fn.executable'bat' == 1 then
             return {'bat', '--style', 'header,grid', readme}
           end
           return {'cat', readme}
