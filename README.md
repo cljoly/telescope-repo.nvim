@@ -11,7 +11,7 @@
 use{
   'nvim-telescope/telescope.nvim',
   requires = {
-    'delphinus/telescope-ghq.nvim',
+    'nvim-telescope/telescope-ghq.nvim',
   },
   config = function()
     require'telescope'.load_extension'ghq'
