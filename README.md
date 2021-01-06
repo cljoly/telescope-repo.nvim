@@ -1,7 +1,8 @@
 # telescope-ghq.nvim
 
-`telescope-ghq` provides its users with operating [x-motemen/ghq][].
+`telescope-ghq` is an extension for [telescope.nvim][] that provides its users with operating [x-motemen/ghq][].
 
+[telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [x-motemen/ghq]: https://github.com/x-motemen/ghq
 
 ## Installation
