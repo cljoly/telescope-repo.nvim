@@ -39,11 +39,14 @@ local function search_doc(dir)
 end
 
 M.list = function(opts)
-  opts = opts or {}
+  opts = vim.tbl_extend('force', {
+    bin = 'ghq',
+  }, opts or {})
+  local bin = vim.fn.expand(opts.bin)
   pickers.new(opts, {
     prompt_title = 'Repositories managed by ghq',
     finder = finders.new_oneshot_job(
-      {'ghq', 'list', '--full-path'},
+      {bin, 'list', '--full-path'},
       opts
     ),
     previewer = previewers.new_termopen_previewer{

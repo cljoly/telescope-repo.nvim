@@ -30,3 +30,12 @@ TODO: others
 `:Telescope ghq list`
 
 Running `ghq list` and list repositories' paths. When you input `<CR>`, it runs `builtin.git_files` on the repo.
+
+#### options
+
+* `bin` -- filepath for the binary `ghq`.
+
+   ```vim
+   " path can be expanded
+   :Telescope ghq list bin=~/ghq
+   ```
