@@ -19,7 +19,7 @@ M.list = function(opts)
       get_command = function(entry)
         -- TODO: deal with other README's
         local readme
-        for _, name in pairs{'README', 'README.md'} do
+        for _, name in pairs{'README', 'README.md', 'README.markdown'} do
           local path = entry.value..'/'..name
           local file_found = io.open(path)
           if file_found then
