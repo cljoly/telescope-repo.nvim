@@ -1,6 +1,7 @@
 local actions = require'telescope.actions'
 local conf = require'telescope.config'.values
 local finders = require'telescope.finders'
+local from_entry = require'telescope.from_entry'
 local pickers = require'telescope.pickers'
 local previewers = require'telescope.previewers'
 
@@ -39,11 +40,20 @@ M.list = function(opts)
       end,
     },
     sorter = conf.file_sorter(opts),
-    attach_mappings = function()
-      actions.goto_file_selection_edit:replace(function(prompt_bufnr)
-        local selection = actions.get_selected_entry()
+    attach_mappings = function(prompt_bufnr)
+      actions._goto_file_selection:replace(function(_, cmd)
+        local entry = actions.get_selected_entry()
         actions.close(prompt_bufnr)
-        require'telescope.builtin'.git_files{cwd = selection.value}
+        local path = from_entry.path(entry)
+        if cmd == 'edit' then
+          require'telescope.builtin'.git_files{cwd = path}
+        elseif cmd == 'new' then
+          vim.cmd('cd '..path)
+          print('chdir to '..path)
+        elseif cmd == 'vnew' then
+          vim.cmd('lcd '..path)
+          print('lchdir to '..path)
+        end
       end)
       return true
     end,
