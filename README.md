@@ -36,6 +36,7 @@ Running `ghq list` and list repositories' paths. In default, it does actions bel
 | `<CR>` (edit)    | `builtin.git_files`  |
 | `<C-x>` (split)  | `:chdir` to the dir  |
 | `<C-v>` (vsplit) | `:lchdir` to the dir |
+| `<C-t>` (tabnew) | `:tchdir` to the dir |
 
 #### options
 

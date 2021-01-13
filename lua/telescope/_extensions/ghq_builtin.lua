@@ -85,6 +85,9 @@ M.list = function(opts)
         elseif cmd == 'vnew' then
           vim.cmd('lcd '..dir)
           print('lchdir to '..dir)
+        elseif cmd == 'tabedit' then
+          vim.cmd('tcd '..dir)
+          print('tchdir to '..dir)
         end
       end)
       return true
