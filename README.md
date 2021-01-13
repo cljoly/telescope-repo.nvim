@@ -29,7 +29,13 @@ TODO: others
 
 `:Telescope ghq list`
 
-Running `ghq list` and list repositories' paths. When you input `<CR>`, it runs `builtin.git_files` on the repo.
+Running `ghq list` and list repositories' paths. In default, it does actions below when you input keys.
+
+| key              | action               |
+|------------------|----------------------|
+| `<CR>` (edit)    | `builtin.git_files`  |
+| `<C-x>` (split)  | `:chdir` to the dir  |
+| `<C-v>` (vsplit) | `:lchdir` to the dir |
 
 #### options
 
