@@ -1,10 +1,14 @@
 local actions = require'telescope.actions'
 local conf = require'telescope.config'.values
+local entry_display = require'telescope.pickers.entry_display'
 local finders = require'telescope.finders'
 local from_entry = require'telescope.from_entry'
 local path = require'telescope.path'
 local pickers = require'telescope.pickers'
 local previewers = require'telescope.previewers'
+local utils = require'telescope.utils'
+
+local os_home = vim.loop.os_homedir()
 
 local M = {}
 
@@ -38,10 +42,46 @@ local function search_doc(dir)
   return nil
 end
 
+local function gen_from_ghq(opts)
+  local displayer = entry_display.create{
+    items = {{}},
+  }
+
+  local function make_display(entry)
+    local original = entry.path
+    local dir
+    if opts.tail_path then
+      dir = utils.path_tail(original)
+    elseif opts.shorten_path then
+      dir = utils.path_shorten(original)
+    else
+      dir = path.make_relative(original, opts.cwd)
+      if vim.startswith(dir, os_home) then
+        dir = '~/'..path.make_relative(dir, os_home)
+      elseif dir ~= original then
+        dir = './'..dir
+      end
+    end
+
+    return displayer{dir}
+  end
+
+  return function(line)
+    return {
+      value = line,
+      ordinal = line,
+      path = line,
+      display = make_display,
+    }
+  end
+end
+
 M.list = function(opts)
-  opts = vim.tbl_extend('force', {
-    bin = 'ghq',
-  }, opts or {})
+  opts = opts or {}
+  opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'ghq'
+  opts.cwd = utils.get_lazy_default(opts.cwd, vim.fn.getcwd)
+  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
+
   local bin = vim.fn.expand(opts.bin)
   pickers.new(opts, {
     prompt_title = 'Repositories managed by ghq',

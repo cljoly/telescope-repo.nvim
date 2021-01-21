@@ -40,9 +40,29 @@ Running `ghq list` and list repositories' paths. In default, it does actions bel
 
 #### options
 
-* `bin` -- filepath for the binary `ghq`.
+#### `bin`
 
-   ```vim
-   " path can be expanded
-   :Telescope ghq list bin=~/ghq
-   ```
+Filepath for the binary `ghq`.
+
+```vim
+" path can be expanded
+:Telescope ghq list bin=~/ghq
+```
+
+#### `cwd`
+
+Transform the result paths into relative ones with this value as the base dir.
+
+Default value: `vim.fn.getcwd()`
+
+#### `tail_path`
+
+Show only basename of the path.
+
+Default value: `false`
+
+#### `shorten_path`
+
+Call `pathshorten()` for each path.
+
+Default value: `false`
