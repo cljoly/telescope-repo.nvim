@@ -79,7 +79,7 @@ end
 M.list = function(opts)
   opts = opts or {}
   opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'ghq'
-  opts.cwd = utils.get_lazy_default(opts.cwd, vim.fn.getcwd)
+  opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
 
   local bin = vim.fn.expand(opts.bin)
