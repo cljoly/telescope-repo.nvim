@@ -1,4 +1,5 @@
 local actions = require'telescope.actions'
+local actions_set = require'telescope.actions.set'
 local conf = require'telescope.config'.values
 local entry_display = require'telescope.pickers.entry_display'
 local finders = require'telescope.finders'
@@ -113,19 +114,19 @@ M.list = function(opts)
     },
     sorter = conf.file_sorter(opts),
     attach_mappings = function(prompt_bufnr)
-      actions._goto_file_selection:replace(function(_, cmd)
+      actions_set.select:replace(function(_, type)
         local entry = actions.get_selected_entry()
         actions.close(prompt_bufnr)
         local dir = from_entry.path(entry)
-        if cmd == 'edit' then
+        if type == 'default' then
           require'telescope.builtin'.git_files{cwd = dir}
-        elseif cmd == 'new' then
+        elseif type == 'horizontal' then
           vim.cmd('cd '..dir)
           print('chdir to '..dir)
-        elseif cmd == 'vnew' then
+        elseif type == 'vertical' then
           vim.cmd('lcd '..dir)
           print('lchdir to '..dir)
-        elseif cmd == 'tabedit' then
+        elseif type == 'tab' then
           vim.cmd('tcd '..dir)
           print('tchdir to '..dir)
         end
