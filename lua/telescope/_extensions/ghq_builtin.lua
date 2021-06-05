@@ -79,15 +79,15 @@ end
 
 M.list = function(opts)
   opts = opts or {}
-  opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'ghq'
-  opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
+  opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'fd'
+  opts.cwd = vim.env.HOME
   opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
 
   local bin = vim.fn.expand(opts.bin)
   pickers.new(opts, {
-    prompt_title = 'Repositories managed by ghq',
+    prompt_title = 'Git repositories',
     finder = finders.new_oneshot_job(
-      {bin, 'list', '--full-path'},
+      {bin, '-I', '-H', '-t', 'd', '-s', '-a', '-x', 'echo', [[{//}]], ';', [[^\.git$]]},
       opts
     ),
     previewer = previewers.new_termopen_previewer{
