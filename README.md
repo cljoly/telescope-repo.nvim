@@ -1,6 +1,6 @@
-# telescope-git-repo.nvim
+# telescope-repo.nvim
 
-**`telescope-git-repo.nvim` is a work in progress. It is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
+**`telescope-repo.nvim` is a work in progress. It is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
 
 `telescope-ghq` is an extension for [telescope.nvim][] that provides its users with operating [x-motemen/ghq][].
 
