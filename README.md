@@ -2,6 +2,12 @@
 
 **`telescope-repo.nvim` is a work in progress. It is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
 
+- jump around the repositories in your filesystem
+  - for now, it supports only git, but many other scm systems should be trivial to add
+
+telescope-ghq readme below
+-------
+
 `telescope-ghq` is an extension for [telescope.nvim][] that provides its users with operating [x-motemen/ghq][].
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
