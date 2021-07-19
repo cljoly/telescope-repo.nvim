@@ -23,7 +23,9 @@ local function is_root(pathname)
 end
 
 local function search_readme(dir)
-  for _, name in pairs{'README', 'README.md', 'README.markdown'} do
+  for _, name in pairs{
+    'README', 'README.md', 'README.markdown', 'README.mkd',
+  } do
     local file = dir / name
     if file:is_file() then return file end
   end
