@@ -4,41 +4,40 @@ local conf = require'telescope.config'.values
 local entry_display = require'telescope.pickers.entry_display'
 local finders = require'telescope.finders'
 local from_entry = require'telescope.from_entry'
-local path = require'telescope.path'
 local pickers = require'telescope.pickers'
 local previewers = require'telescope.previewers'
 local utils = require'telescope.utils'
+local Path = require'plenary.path'
 
 local os_home = vim.loop.os_homedir()
 
 local M = {}
 
-local function is_readable(filepath)
-  local fd = vim.loop.fs_open(filepath, 'r', 438)
-  local result = fd and true or false
-  if result then
-    vim.loop.fs_close(fd)
+-- This func is borrowed from plenary.path.
+-- TODO: should make plenary.path#is_root() public?
+local function is_root(pathname)
+  if Path.path.sep == '\\' then
+    return string.match(pathname, '^[A-Z]:\\?$')
   end
-  return result
+  return pathname == '/'
 end
 
 local function search_readme(dir)
-  for _, name in pairs{'README', 'README.md', 'README.markdown'} do
-    local filepath = dir..path.separator..name
-    if is_readable(filepath) then
-      return filepath
-    end
+  for _, name in pairs{
+    'README', 'README.md', 'README.markdown', 'README.mkd',
+  } do
+    local file = dir / name
+    if file:is_file() then return file end
   end
   return nil
 end
 
 local function search_doc(dir)
-  local doc_path = vim.fn.join({dir, 'doc', '**', '*.txt'}, path.separator)
-  local maybe_doc = vim.split(vim.fn.glob(doc_path), '\n')
+  local doc_path = Path:new(dir, 'doc', '**', '*.txt')
+  local maybe_doc = vim.split(vim.fn.glob(doc_path.filename), '\n')
   for _, filepath in pairs(maybe_doc) do
-    if is_readable(filepath) then
-      return filepath
-    end
+    local file = Path:new(filepath)
+    if file:is_file() then return file end
   end
   return nil
 end
@@ -49,18 +48,25 @@ local function gen_from_ghq(opts)
   }
 
   local function make_display(entry)
-    local original = entry.path
     local dir
-    if opts.tail_path then
-      dir = utils.path_tail(original)
-    elseif opts.shorten_path then
-      dir = utils.path_shorten(original)
+    if is_root(entry.path) then
+      dir = entry.path
     else
-      dir = path.make_relative(original, opts.cwd)
-      if vim.startswith(dir, os_home) then
-        dir = '~/'..path.make_relative(dir, os_home)
-      elseif dir ~= original then
-        dir = './'..dir
+      local original = Path:new(entry.path)
+      if opts.tail_path then
+        local parts = original:_split()
+        dir = parts[#parts]
+      elseif opts.shorten_path then
+        dir = original:shorten()
+      else
+        local relpath = Path:new(original):make_relative(opts.cwd)
+        local p
+        if vim.startswith(relpath, os_home) then
+          p = Path:new'~' / Path:new(relpath):make_relative(os_home)
+        elseif relpath.filename ~= original then
+          p = Path:new'.' / relpath
+        end
+        dir = p and p.filename or relpath
       end
     end
 
@@ -92,7 +98,7 @@ M.list = function(opts)
     ),
     previewer = previewers.new_termopen_previewer{
       get_command = function(entry)
-        local dir = from_entry.path(entry)
+        local dir = Path:new(from_entry.path(entry))
         local doc = search_readme(dir)
         local is_mardown
         if doc then
@@ -103,11 +109,11 @@ M.list = function(opts)
         end
         if doc then
           if is_mardown and vim.fn.executable'glow' == 1 then
-            return {'glow', doc}
+            return {'glow', doc.filename}
           elseif vim.fn.executable'bat' == 1 then
-            return {'bat', '--style', 'header,grid', doc}
+            return {'bat', '--style', 'header,grid', doc.filename}
           end
-          return {'cat', doc}
+          return {'cat', doc.filename}
         end
         return {'echo', ''}
       end,
