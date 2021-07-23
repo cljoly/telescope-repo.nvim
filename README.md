@@ -1,17 +1,10 @@
-# telescope-repo.nvim
+# telescope-repo.nvim: jump around the repositories in your filesystem
 
-**`telescope-repo.nvim` is a work in progress. It is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
-
-- jump around the repositories in your filesystem
-  - for now, it supports only git, but many other scm systems should be trivial to add
-
-telescope-ghq readme below
--------
-
-`telescope-ghq` is an extension for [telescope.nvim][] that provides its users with operating [x-motemen/ghq][].
+`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. One can then select a repository and open files in it.
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
-[x-motemen/ghq]: https://github.com/x-motemen/ghq
+
+**`telescope-repo.nvim` is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
 
 ## Installation
 
@@ -27,17 +20,30 @@ use{
 }
 ```
 
+## External dependancies
+
+### Required
+
+- [`fd`][]
+
+[`fd`]: https://github.com/sharkdp/fd
+
+### Optional
+
+- [`glow`][] to preview markdown files, will fallback to [`bat`][] if not present (and uses `cat` if neither are present)
+
+[`glow`]: https://github.com/charmbracelet/glow
+[`bat`]: https://github.com/sharkdp/bat
+
 ## Usage
 
-Now supports `ghq list` only.
-
-TODO: others
+Now supports `repo list` only.
 
 ### list
 
-`:Telescope ghq list`
+`:Telescope repo list`
 
-Running `ghq list` and list repositories' paths. In default, it does actions below when you input keys.
+Running `repo list` and list repositories' paths. In default, it does actions below when you input keys.
 
 | key              | action               |
 |------------------|----------------------|
@@ -50,11 +56,11 @@ Running `ghq list` and list repositories' paths. In default, it does actions bel
 
 #### `bin`
 
-Filepath for the binary `ghq`.
+Filepath for the binary `fd`.
 
 ```vim
 " path can be expanded
-:Telescope ghq list bin=~/ghq
+:Telescope repo list bin=~/fd
 ```
 
 #### `cwd`
@@ -74,3 +80,13 @@ Default value: `false`
 Call `pathshorten()` for each path.
 
 Default value: `false`
+
+## FAQ
+
+### Getting the repository list is slow
+
+You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this
+
+### How to use this plugin with Mercurial (hg), Fossil, Pijul…
+
+See [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2)
