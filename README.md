@@ -4,7 +4,7 @@
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 
-**`telescope-repo.nvim` is based on https://github.com/nvim-telescope/telescope-ghq.nvim**
+**`telescope-repo.nvim` is based on [telescope-repo.nvim](https://github.com/nvim-telescope/telescope-ghq.nvim)**
 
 ## Installation
 
