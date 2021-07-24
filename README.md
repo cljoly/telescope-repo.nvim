@@ -1,5 +1,8 @@
 # telescope-repo.nvim: jump around the repositories in your filesystem
 
+![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://user-images.githubusercontent.com/7347374/126880459-a4dcd9cd-ed96-4dc0-8b95-a3f1b240d64e.png)
+
+
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. One can then select a repository and open files in it.
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
@@ -8,6 +11,7 @@
 
 ## Installation
 
+With packer:
 ```lua
 use{
   'nvim-telescope/telescope.nvim',
@@ -24,7 +28,7 @@ use{
 
 ### Required
 
-- [`fd`][]
+- [`fd`][] to find the repositories on the filesystem.
 
 [`fd`]: https://github.com/sharkdp/fd
 
