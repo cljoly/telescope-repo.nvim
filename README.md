@@ -107,4 +107,4 @@ Set the `pattern` option to `[[^\.hg$]]`, `[[^\.pijul$]]`…
 lua require'telescope'.extensions.repo.list{pattern=[[^\.hg$]]}
 ```
 
-See also [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2), in particular for Fossil
+See also [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2), in particular for Fossil.
