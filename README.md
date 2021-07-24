@@ -1,9 +1,11 @@
 # telescope-repo.nvim: jump around the repositories in your filesystem
 
-![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://user-images.githubusercontent.com/7347374/126880459-a4dcd9cd-ed96-4dc0-8b95-a3f1b240d64e.png)
-
-
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. One can then select a repository and open files in it.
+
+![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://user-images.githubusercontent.com/7347374/126880459-a4dcd9cd-ed96-4dc0-8b95-a3f1b240d64e.png)
+```
+:Telescope repo list
+```
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 
@@ -28,7 +30,7 @@ use{
 
 ### Required
 
-- [`fd`][] to find the repositories on the filesystem.
+- [`fd`][] to find the repositories on the filesystem
 
 [`fd`]: https://github.com/sharkdp/fd
 
@@ -67,6 +69,12 @@ Filepath for the binary `fd`.
 :Telescope repo list bin=~/fd
 ```
 
+#### `pattern`
+
+Pattern of the scm database folder.
+
+Default value: `[[^\.git$]]`
+
 #### `cwd`
 
 Transform the result paths into relative ones with this value as the base dir.
@@ -89,8 +97,14 @@ Default value: `false`
 
 ### Getting the repository list is slow
 
-You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this
+You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this.
 
-### How to use this plugin with Mercurial (hg), Fossil, Pijul…
+### How to use this plugin with Mercurial (hg), Pijul, Fossil…
 
-See [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2)
+Set the `pattern` option to `[[^\.hg$]]`, `[[^\.pijul$]]`…
+
+```
+lua require'telescope'.extensions.repo.list{pattern=[[^\.hg$]]}
+```
+
+See also [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2), in particular for Fossil

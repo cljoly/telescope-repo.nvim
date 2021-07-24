@@ -90,10 +90,16 @@ M.list = function(opts)
   opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
 
   local bin = vim.fn.expand(opts.bin)
+  local fd_command = {bin}
+  local repo_pattern = opts.pattern or [[^\.git$]]
+  local find_repo_opts = {'-H', '-t', 'd', '-s', '-a', '-x', 'echo', [[{//}]], ';', repo_pattern}
+  table.insert(fd_command, find_repo_opts)
+  fd_command = vim.tbl_flatten(fd_command)
+
   pickers.new(opts, {
     prompt_title = 'Git repositories',
     finder = finders.new_oneshot_job(
-      {bin, '-I', '-H', '-t', 'd', '-s', '-a', '-x', 'echo', [[{//}]], ';', [[^\.git$]]},
+      fd_command,
       opts
     ),
     previewer = previewers.new_termopen_previewer{
