@@ -13,17 +13,14 @@
 
 ## Installation
 
-With packer:
+You need to add these in your plugin management system:
 ```lua
-use{
-  'nvim-telescope/telescope.nvim',
-  requires = {
-    'nvim-telescope/telescope-ghq.nvim',
-  },
-  config = function()
-    require'telescope'.load_extension'ghq'
-  end,
-}
+'nvim-telescope/telescope.nvim'
+'cljoly/telescope-repo.nvim'
+```
+And optionally, to load the extension:
+```lua
+require'telescope'.load_extension'repo'
 ```
 
 ## External dependancies
