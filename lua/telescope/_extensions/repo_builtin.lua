@@ -83,6 +83,11 @@ local function gen_from_ghq(opts)
   end
 end
 
+local function project_files(opts)
+  local ok = pcall(require'telescope.builtin'.git_files, opts)
+  if not ok then require'telescope.builtin'.find_files(opts) end
+end
+
 M.list = function(opts)
   opts = opts or {}
   opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'fd'
@@ -131,7 +136,7 @@ M.list = function(opts)
         local dir = from_entry.path(entry)
         if type == 'default' then
           actions._close(prompt_bufnr, true)
-          require'telescope.builtin'.git_files{cwd = dir}
+          project_files{cwd = dir}
         elseif type == 'horizontal' then
           actions.close(prompt_bufnr)
           vim.cmd('cd '..dir)
