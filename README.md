@@ -2,10 +2,7 @@
 
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. One can then select a repository and open files in it.
 
-![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://user-images.githubusercontent.com/7347374/126880459-a4dcd9cd-ed96-4dc0-8b95-a3f1b240d64e.png)
-```
-:Telescope repo list
-```
+[![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://asciinema.org/a/427156.svg)](https://asciinema.org/a/427156)
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 
@@ -40,7 +37,10 @@ require'telescope'.load_extension'repo'
 
 ## Usage
 
-Now supports `repo list` only.
+Run:
+```
+:Telescope repo list
+```
 
 ### list
 
