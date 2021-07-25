@@ -1,6 +1,6 @@
 # telescope-repo.nvim: jump around the repositories in your filesystem
 
-`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. One can then select a repository and open files in it.
+`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories.
 
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://asciinema.org/a/427156.svg)](https://asciinema.org/a/427156)
 
