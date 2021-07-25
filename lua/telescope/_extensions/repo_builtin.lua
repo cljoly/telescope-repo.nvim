@@ -128,17 +128,20 @@ M.list = function(opts)
     attach_mappings = function(prompt_bufnr)
       actions_set.select:replace(function(_, type)
         local entry = actions.get_selected_entry()
-        actions.close(prompt_bufnr)
         local dir = from_entry.path(entry)
         if type == 'default' then
+          actions._close(prompt_bufnr, true)
           require'telescope.builtin'.git_files{cwd = dir}
         elseif type == 'horizontal' then
+          actions.close(prompt_bufnr)
           vim.cmd('cd '..dir)
           print('chdir to '..dir)
         elseif type == 'vertical' then
+          actions.close(prompt_bufnr)
           vim.cmd('lcd '..dir)
           print('lchdir to '..dir)
         elseif type == 'tab' then
+          actions.close(prompt_bufnr)
           vim.cmd('tcd '..dir)
           print('tchdir to '..dir)
         end
