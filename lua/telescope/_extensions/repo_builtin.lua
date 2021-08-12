@@ -49,6 +49,8 @@ local function gen_from_ghq(opts)
         dir = parts[#parts]
       elseif opts.shorten_path then
         dir = original:shorten()
+      elseif original:is_absolute() then
+        dir = entry.path
       else
         local relpath = Path:new(original):make_relative(opts.cwd)
         local p
