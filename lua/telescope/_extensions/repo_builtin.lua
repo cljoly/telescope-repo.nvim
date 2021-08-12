@@ -13,15 +13,6 @@ local os_home = vim.loop.os_homedir()
 
 local M = {}
 
--- This func is borrowed from plenary.path.
--- TODO: should make plenary.path#is_root() public?
-local function is_root(pathname)
-  if Path.path.sep == '\\' then
-    return string.match(pathname, '^[A-Z]:\\?$')
-  end
-  return pathname == '/'
-end
-
 local function search_readme(dir)
   for _, name in pairs{
     'README', 'README.md', 'README.markdown', 'README.mkd',
@@ -49,7 +40,7 @@ local function gen_from_ghq(opts)
 
   local function make_display(entry)
     local dir
-    if is_root(entry.path) then
+    if entry.path == Path.path.root() then
       dir = entry.path
     else
       local original = Path:new(entry.path)
