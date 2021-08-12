@@ -39,29 +39,26 @@ local function gen_from_ghq(opts)
   }
 
   local function make_display(entry)
-    local dir
-    if entry.path == Path.path.root() then
-      dir = entry.path
-    else
-      local original = Path:new(entry.path)
+    local dir = (function(path)
+      if path == Path.path.root() then return path end
+
+      local p = Path:new(path)
       if opts.tail_path then
-        local parts = original:_split()
-        dir = parts[#parts]
-      elseif opts.shorten_path then
-        dir = original:shorten()
-      elseif original:is_absolute() then
-        dir = entry.path
-      else
-        local relpath = Path:new(original):make_relative(opts.cwd)
-        local p
-        if vim.startswith(relpath, os_home) then
-          p = Path:new'~' / Path:new(relpath):make_relative(os_home)
-        elseif relpath.filename ~= original then
-          p = Path:new'.' / relpath
-        end
-        dir = p and p.filename or relpath
+        local parts = p:_split()
+        return parts[#parts]
       end
-    end
+
+      if opts.shorten_path then return p:shorten() end
+
+      if vim.startswith(path, opts.cwd) and path ~= opts.cwd then
+        return Path:new(p):make_relative(opts.cwd)
+      end
+
+      if vim.startswith(path, os_home) then
+        return (Path:new'~' / p:make_relative(os_home)).filename
+      end
+      return path
+    end)(entry.path)
 
     return displayer{dir}
   end
