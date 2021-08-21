@@ -19,9 +19,9 @@ end_insert -->
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the top](https://asciinema.org/a/431528.svg)](https://asciinema.org/a/431528)
 <!-- end_remove -->
 <!-- insert
-{{< asciicast  >}}src="./telescope.cast" poster="npt:0:04"{{< /asciicast  >}}
+Finding the repositories with “telescope” in their name, with the README in the panel on the top:
 
-> Finding the repositories with “telescope” in their name, with the README in the panel on the top
+{{< asciicast  >}}src="./telescope.cast" poster="npt:0:04"{{< /asciicast  >}}
 end_insert -->
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
