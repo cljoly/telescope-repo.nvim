@@ -14,10 +14,12 @@ end_insert -->
 - Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps opening the two, for instance in two splits.
 
 <!-- remove -->
-[![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://asciinema.org/a/427156.svg)](https://asciinema.org/a/427156)
+[![Finding the repositories with “telescope” in their name, with the README in the panel on the top](https://asciinema.org/a/431528.svg)](https://asciinema.org/a/431528)
 <!-- end_remove -->
 <!-- insert
 {{< asciicast  >}}src="./telescope.cast" poster="npt:0:04"{{< /asciicast  >}}
+
+> Finding the repositories with “telescope” in their name, with the README in the panel on the top
 end_insert -->
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
