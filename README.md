@@ -1,14 +1,28 @@
+<!-- insert
+---
+title: "telescope-repo.nvim: jump around the repositories in your filesystem"
+date: 2021-08-21T10:02:37
+---
+{{< github_badge >}}
+end_insert -->
+<!-- remove -->
 # telescope-repo.nvim: jump around the repositories in your filesystem
+<!-- end_remove -->
 
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. Use cases include:
 - If you don’t start vim from the shell (from a GUI or as the start command of a terminal), you are most likely in your `$HOME` directory. You then want to jump into your code as quickly as possible and this plugin can help!
 - Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps opening the two, for instance in two splits.
 
+<!-- remove -->
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the right](https://asciinema.org/a/427156.svg)](https://asciinema.org/a/427156)
+<!-- end_remove -->
+<!-- insert
+{{< asciicast  >}}src="./telescope.cast" poster="npt:0:04"{{< /asciicast  >}}
+end_insert -->
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 
-`telescope-repo.nvim` is based on [telescope-repo.nvim](https://github.com/nvim-telescope/telescope-ghq.nvim)
+`telescope-repo.nvim` is based on [telescope-ghq.nvim](https://github.com/nvim-telescope/telescope-ghq.nvim)
 
 ## Installation
 
