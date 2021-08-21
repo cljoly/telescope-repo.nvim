@@ -2,6 +2,8 @@
 ---
 title: "telescope-repo.nvim: jump around the repositories in your filesystem"
 date: 2021-08-21T10:02:37
+aliases:
+- /telescope-repo.nvim
 ---
 {{< github_badge >}}
 end_insert -->
