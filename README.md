@@ -1,6 +1,6 @@
 <!-- insert
 ---
-title: "telescope-repo.nvim: jump around the repositories in your filesystem"
+title: "🦘 telescope-repo.nvim: jump around the repositories in your filesystem"
 date: 2021-08-21T10:02:37
 aliases:
 - /telescope-repo.nvim
@@ -8,7 +8,7 @@ aliases:
 {{< github_badge >}}
 end_insert -->
 <!-- remove -->
-# telescope-repo.nvim: jump around the repositories in your filesystem
+# 🦘 telescope-repo.nvim: jump around the repositories in your filesystem
 <!-- end_remove -->
 
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. Use cases include:
