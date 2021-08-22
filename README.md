@@ -2,6 +2,7 @@
 ---
 title: "🦘 telescope-repo.nvim: jump around the repositories in your filesystem"
 date: 2021-08-21T10:02:37
+repo_url: "https://github.com/cljoly/telescope-repo.nvim"
 aliases:
 - /telescope-repo.nvim
 ---
