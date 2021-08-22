@@ -137,18 +137,6 @@ M.list = function(opts)
         if type == 'default' then
           actions._close(prompt_bufnr, true)
           project_files{cwd = dir}
-        elseif type == 'horizontal' then
-          actions.close(prompt_bufnr)
-          vim.cmd('cd '..dir)
-          print('chdir to '..dir)
-        elseif type == 'vertical' then
-          actions.close(prompt_bufnr)
-          vim.cmd('lcd '..dir)
-          print('lchdir to '..dir)
-        elseif type == 'tab' then
-          actions.close(prompt_bufnr)
-          vim.cmd('tcd '..dir)
-          print('tchdir to '..dir)
         end
       end)
       return true
