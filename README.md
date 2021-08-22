@@ -13,8 +13,8 @@ end_insert -->
 <!-- end_remove -->
 
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. Use cases include:
-- If you don’t start vim from the shell (from a GUI or as the start command of a terminal), you are most likely in your `$HOME` directory. You then want to jump into your code as quickly as possible and this plugin can help!
-- Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps opening the two, for instance in two splits.
+* If you don’t start vim from the shell (from a GUI or as the start command of a terminal), you are most likely in your `$HOME` directory. You then want to jump into your code as quickly as possible and this plugin can help!
+* Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps to open the two, for instance in two splits.
 
 <!-- remove -->
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the top](https://asciinema.org/a/431528.svg)](https://asciinema.org/a/431528)
@@ -45,13 +45,13 @@ require'telescope'.load_extension'repo'
 
 ### Required
 
-- [`fd`][] to find the repositories on the filesystem
+* [`fd`][] to find the repositories on the filesystem
 
 [`fd`]: https://github.com/sharkdp/fd
 
 ### Optional
 
-- [`glow`][] to preview markdown files, will fallback to [`bat`][] if not present (and uses `cat` if neither are present)
+* [`glow`][] to preview markdown files, will fall back to [`bat`][] if not present (and uses `cat` if neither are present)
 
 [`glow`]: https://github.com/charmbracelet/glow
 [`bat`]: https://github.com/sharkdp/bat
