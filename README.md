@@ -104,7 +104,7 @@ Default value: `false`
 
 #### `shorten_path`
 
-Call `pathshorten()` for each path.
+Call `pathshorten()` for each path. This will for instance transform `/home/me/code/project` to `/h/m/c/project`.
 
 Default value: `false`
 
