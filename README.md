@@ -22,7 +22,7 @@ end_insert -->
 <!-- insert
 Finding the repositories with “telescope” in their name, with the README in the panel on the top:
 
-{{< asciicast  >}}src="./telescope.cast" poster="npt:0:04"{{< /asciicast  >}}
+{{< asciicast src="/telescope-repo-nvim/telescope.json" poster="npt:0:04" autoplay="true" >}}
 end_insert -->
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
