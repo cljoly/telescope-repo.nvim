@@ -1,7 +1,8 @@
 <!-- insert
 ---
-title: "🦘 telescope-repo.nvim: jump around the repositories in your filesystem"
+title: "telescope-repo.nvim"
 date: 2021-08-21T10:02:37
+description: "🦘 Jump into the repositories (git, mercurial…) of your filesystem with telescope.nvim"
 repo_url: "https://github.com/cljoly/telescope-repo.nvim"
 aliases:
 - /telescope-repo.nvim
