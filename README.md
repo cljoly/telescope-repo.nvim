@@ -15,7 +15,7 @@ end_insert -->
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat&logo=neovim)
 
-`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. The list of repositories is built on the fly over your whole `$HOME`, you don’t need to manually add projects or open some folders to populate this list, as opposed to [telescope-project.nvim](https://github.com/nvim-telescope/telescope-project.nvim) or [project.nvim](https://github.com/ahmedkhalf/project.nvim).
+`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other scm) repositories. It does not require any setup: the list of repositories is built on the fly over your whole `$HOME`, you don’t need to manually add projects or open some folders to populate this list, as opposed to [telescope-project.nvim](https://github.com/nvim-telescope/telescope-project.nvim) or [project.nvim](https://github.com/ahmedkhalf/project.nvim).
 
 <!-- remove -->
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the top](https://asciinema.org/a/431528.svg)](https://asciinema.org/a/431528)
