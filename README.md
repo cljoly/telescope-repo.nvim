@@ -38,6 +38,7 @@ Use cases include:
 
 You need to add these in your plugin management system:
 ```lua
+'nvim-lua/plenary.nvim'
 'nvim-telescope/telescope.nvim'
 'cljoly/telescope-repo.nvim'
 ```
@@ -46,7 +47,18 @@ And optionally, to load the extension:
 require'telescope'.load_extension'repo'
 ```
 
-## External dependancies
+### Packer
+
+For instance, with [Packer.nvim](https://github.com/wbthomason/packer.nvim):
+```lua
+use 'cljoly/telescope-repo.nvim'
+use {
+  'nvim-telescope/telescope.nvim',
+  requires = { {'nvim-lua/plenary.nvim'} }
+}
+```
+
+## External Dependencies
 
 ### Required
 
