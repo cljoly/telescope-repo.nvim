@@ -2,7 +2,7 @@
 ---
 title: "telescope-repo.nvim"
 date: 2021-08-21T10:02:37
-description: "🦘 Jump into the repositories (git, mercurial…) of your filesystem with telescope.nvim"
+description: "🦘 Jump into the repositories of your filesystem, without any setup"
 repo_url: "https://github.com/cljoly/telescope-repo.nvim"
 aliases:
 - /telescope-repo.nvim
@@ -10,7 +10,7 @@ aliases:
 {{< github_badge >}}
 end_insert -->
 <!-- remove -->
-# 🦘 telescope-repo.nvim: jump around the repositories in your filesystem
+# 🦘 telescope-repo.nvim: jump around the repositories in your filesystem, without any setup
 <!-- end_remove -->
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat&logo=neovim)
