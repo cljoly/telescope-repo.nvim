@@ -133,10 +133,8 @@ You can use your `.fdignore` to exclude some folders from your filesystem. If th
 
 ### How to use this plugin with Mercurial (hg), Pijul, Fossil…
 
-Set the `pattern` option to `[[^\.hg$]]`, `[[^\.pijul$]]`…
+Set the `pattern` option respectively to `[[^\.hg$]]`, `[[^\.pijul$]]`, `[[^\.fslckout$]]`…
 
 ```
 lua require'telescope'.extensions.repo.list{pattern=[[^\.hg$]]}
 ```
-
-See also [#2](https://github.com/cljoly/telescope-repo.nvim/issues/2), in particular for Fossil.
