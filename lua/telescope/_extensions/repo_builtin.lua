@@ -100,7 +100,7 @@ M.list = function(opts)
 
   -- Don’t filter only on directories with fd as git worktrees actually have a
   -- .git file in them.
-  local find_repo_opts = {'-H', '-s', '-a', '-x', 'echo', [[{//}]], ';', repo_pattern}
+  local find_repo_opts = {'--hidden', '--case-sensitive', '--absolute-path', '--exec', 'echo', [[{//}]], ';', repo_pattern}
 
   table.insert(fd_command, find_repo_opts)
   fd_command = vim.tbl_flatten(fd_command)
