@@ -29,7 +29,7 @@ end_insert -->
 Use cases include:
 * If you don’t start vim from the shell (from a GUI or as the start command of a terminal), you are most likely in your `$HOME` directory. You then want to jump into your code as quickly as possible and this plugin can help!
 * Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps to open the two, for instance in two splits.
-* Some similar extensions rely on strong conventions to find repositories, like “directories containing a `.git` file that is also a directory, all inside directory `X`”. This precludes support of less popular SCMs like [Pijul][], which has a different folder names, or support of [`git worktree`s][worktree], which has a `.git` *file*.
+* Use of less popular SCMs: some similar extensions rely on strong conventions to find repositories, like “directories containing a `.git` file that is also a directory, all inside directory `X`”. Less popular SCMs like [Pijul][] have a different folder name, and even [`git worktree`s][worktree] don’t feat neatly into these constraint, with their `.git` *files*.
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [Pijul]: https://pijul.org/
