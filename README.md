@@ -15,7 +15,7 @@ end_insert -->
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat&logo=neovim)
 
-`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for git (or other SCM[^1]) repositories. It does not require any setup: the list of repositories is built on the fly over your whole `$HOME`, you don’t need to manually add projects or open some folders to populate this list, as opposed to [telescope-project.nvim](https://github.com/nvim-telescope/telescope-project.nvim) or [project.nvim](https://github.com/ahmedkhalf/project.nvim).
+`telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for *git* (or other SCM[^1], like *Pijul*, *Mercurial*…) repositories. It does not require any setup: the list of repositories is built on the fly over your whole `$HOME`, you don’t need to manually add projects or open some folders to populate this list, as opposed to [telescope-project.nvim](https://github.com/nvim-telescope/telescope-project.nvim) or [project.nvim](https://github.com/ahmedkhalf/project.nvim).
 
 <!-- remove -->
 [![Finding the repositories with “telescope” in their name, with the README in the panel on the top](https://asciinema.org/a/431528.svg)](https://asciinema.org/a/431528)
@@ -23,7 +23,7 @@ end_insert -->
 <!-- insert
 Finding the repositories with “telescope” in their name, with the README in the panel on the top:
 
-{{< asciicast src="/telescope-repo-nvim/telescope.json" poster="npt:0:04" autoplay="true" loop="true" >}}
+{{< asciicast src="/telescope-repo-nvim/telescope.json" poster="npt:0:04" autoplay="false" loop="false" >}}
 end_insert -->
 
 Use cases include:
@@ -79,11 +79,6 @@ use {
 
 ## Usage
 
-Run:
-```
-:Telescope repo list
-```
-
 ### list
 
 `:Telescope repo list`
@@ -92,11 +87,11 @@ Running `repo list` and list repositories' paths.
 
 | key              | action               |
 |------------------|----------------------|
-| `<CR>` (edit)    | `builtin.git_files`  |
+| `<CR>` (edit)    | `builtin.git_files` for git, falls back to `builtin.find_files` for other SCMs |
 
-#### options
+#### Options
 
-#### `bin`
+##### `bin`
 
 Filepath for the binary `fd`.
 
@@ -105,29 +100,42 @@ Filepath for the binary `fd`.
 :Telescope repo list bin=~/fd
 ```
 
-#### `pattern`
+##### `pattern`
 
 Pattern of the SCM database folder.
 
 Default value: `[[^\.git$]]`
 
-#### `cwd`
+##### `cwd`
 
 Transform the result paths into relative ones with this value as the base dir.
 
 Default value: `vim.fn.getcwd()`
 
-#### `tail_path`
+##### `tail_path`
 
 Show only basename of the path.
 
 Default value: `false`
 
-#### `shorten_path`
+##### `shorten_path`
 
 Call `pathshorten()` for each path. This will for instance transform `/home/me/code/project` to `/h/m/c/project`.
 
 Default value: `false`
+
+#### Examples
+
+Here is how you can use this plugin with various SCM:
+
+| SCM    | Command                                                                    |
+|--------|----------------------------------------------------------------------------|
+| git    | `:Telescope repo list` or `lua require'telescope'.extensions.repo.list{}`  |
+| pijul  | `lua require'telescope'.extensions.repo.list{pattern=[[^\.pijul$]]}`       |
+| hg     | `lua require'telescope'.extensions.repo.list{pattern=[[^\.hg$]]}`          |
+| fossil | `lua require'telescope'.extensions.repo.list{pattern=[[^\.fslckout$]]}`    |
+
+Is your favorite SCM missing? It should be straightforward to support it by changing the pattern parameter. If you want it to be considered for addition here, open a PR!
 
 ## FAQ
 
@@ -135,10 +143,3 @@ Default value: `false`
 
 You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this.
 
-### How to use this plugin with Mercurial (hg), Pijul, Fossil…
-
-Set the `pattern` option respectively to `[[^\.hg$]]`, `[[^\.pijul$]]`, `[[^\.fslckout$]]`…
-
-```
-lua require'telescope'.extensions.repo.list{pattern=[[^\.hg$]]}
-```
