@@ -6,6 +6,9 @@ description: "🦘 Jump into the repositories of your filesystem, without any se
 repo_url: "https://github.com/cljoly/telescope-repo.nvim"
 aliases:
 - /telescope-repo.nvim
+tags:
+- NeoVim
+- Lua
 ---
 {{< github_badge >}}
 end_insert -->
