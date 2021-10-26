@@ -9,6 +9,7 @@ aliases:
 tags:
 - NeoVim
 - Lua
+- Plugin
 ---
 {{< github_badge >}}
 end_insert -->
