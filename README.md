@@ -81,7 +81,7 @@ use {
 
 ### list
 
-`:Telescope repo list`
+`:Telescope repo list` or `lua require'telescope'.extensions.repo.list{}`
 
 Running `repo list` and list repositories' paths.
 
@@ -111,6 +111,28 @@ Default value: `[[^\.git$]]`
 Transform the result paths into relative ones with this value as the base dir.
 
 Default value: `vim.fn.getcwd()`
+
+#### `fd_opts`
+
+**This is a relatively advanced option that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions**
+
+This passes additional options to the command `fd` that generates the repository list. It is inserted like so:
+
+```
+fd [set of default options] [fd_opts] --exec [some default command] [pattern] …
+```
+
+##### Example
+
+Let’s say you have a git repository `S` inside another git repository `M` (for instance because of [#5](https://github.com/cljoly/telescope-repo.nvim/issues/5)), but `S` is in a directory that’s ignored in the `.gitignore` in `M`. `S` wouldn’t appear in the Telescope list of this extension by default, because it is ignored (`.gitignore` are taken into account by default).
+
+To avoid taking into account the `.gitignore`, we need to pass `--no-ignore-vcs` to `fd`, like so (in NeoVim):
+
+```
+:lua require'telescope'.extensions.repo.list{fd_opts={'--no-ignore-vcs'}}
+```
+
+This will list `M` and `S` in the Telescope output! The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
 
 ##### `tail_path`
 

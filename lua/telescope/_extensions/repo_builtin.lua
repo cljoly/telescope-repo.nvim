@@ -91,9 +91,15 @@ M.list = function(opts)
 
   -- Don’t filter only on directories with fd as git worktrees actually have a
   -- .git file in them.
-  local find_repo_opts = {'--hidden', '--case-sensitive', '--absolute-path', '--exec', 'echo', [[{//}]], ';', repo_pattern}
+  local find_repo_opts = {'--hidden', '--case-sensitive', '--absolute-path'}
+  local find_user_opts = opts.fd_opts or {}
+  local find_exec_opts = {'--exec', 'echo', [[{//}]], ';'}
+  local find_pattern_opts = {repo_pattern}
 
   table.insert(fd_command, find_repo_opts)
+  table.insert(fd_command, find_user_opts)
+  table.insert(fd_command, find_exec_opts)
+  table.insert(fd_command, find_pattern_opts)
   fd_command = vim.tbl_flatten(fd_command)
 
   pickers.new(opts, {
