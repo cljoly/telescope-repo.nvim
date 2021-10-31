@@ -12,6 +12,10 @@ tags:
 - Plugin
 ---
 {{< github_badge >}}
+
+{{< rawhtml >}}
+<div class="badges">
+{{< /rawhtml >}}
 end_insert -->
 <!-- remove -->
 # 🦘 telescope-repo.nvim: jump around the repositories in your filesystem, without any setup
@@ -19,6 +23,11 @@ end_insert -->
 
 ![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat&logo=neovim) [![](https://img.shields.io/badge/powered%20by-riss-lightgrey)](https://cj.rs/riss)
 
+<!-- insert
+{{< rawhtml >}}
+</div>
+{{< /rawhtml >}}
+end_insert -->
 
 `telescope-repo` is an extension for [telescope.nvim][] that searches the filesystem for *git* (or other SCM[^1], like *Pijul*, *Mercurial*…) repositories. It does not require any setup: the list of repositories is built on the fly over your whole `$HOME`, you don’t need to manually add projects or open some folders to populate this list, as opposed to [telescope-project.nvim](https://github.com/nvim-telescope/telescope-project.nvim) or [project.nvim](https://github.com/ahmedkhalf/project.nvim).
 
@@ -28,13 +37,13 @@ end_insert -->
 <!-- insert
 Finding the repositories with “telescope” in their name, with the README in the panel on the top:
 
-{{< asciicast src="/telescope-repo-nvim/telescope.json" poster="npt:0:04" autoplay="false" loop="false" >}}
+{{< asciicast src="/telescope-repo-nvim/telescope.json" preload=1 loop="true" start-at="1" >}}
 end_insert -->
 
 Use cases include:
 * If you don’t start vim from the shell (from a GUI or as the start command of a terminal), you are most likely in your `$HOME` directory. You then want to jump into your code as quickly as possible and this plugin can help!
 * Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps to open the two, for instance in two splits.
-* Use of less popular SCMs: some similar extensions rely on strong conventions to find repositories, like “directories containing a `.git` file that is also a directory, all inside directory `X`”. Less popular SCMs like [Pijul][] have a different folder name, and even [`git worktree`s][worktree] don’t feat neatly into these constraint, with their `.git` *files*.
+* Use of less popular SCMs: some similar extensions rely on strong conventions to find repositories, like “directories containing a `.git` file that is also a directory, all inside directory `X`”. Less popular SCMs like [Pijul][] have a different folder name, and even [`git worktree`][worktree]s don’t fit neatly into these constraint, with their `.git` *files*.
 
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [Pijul]: https://pijul.org/
