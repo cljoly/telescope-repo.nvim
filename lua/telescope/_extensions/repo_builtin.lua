@@ -34,7 +34,8 @@ local function search_doc(dir)
   return nil
 end
 
-local function gen_from_ghq(opts)
+-- Was gen_from_ghq in telescope-ghq.nvim
+local function gen_from_fd(opts)
   local displayer = entry_display.create{
     items = {{}},
   }
@@ -80,7 +81,7 @@ local function project_files(opts)
 end
 
 local function call_picker(opts, command, prompt_title_supplement)
-  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
+  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
 
   local prompt_title = 'Git repositories'
   if prompt_title_supplement ~= nil then
