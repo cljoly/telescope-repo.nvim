@@ -79,23 +79,15 @@ local function project_files(opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
--- Find under what name fd is installed
-local function find_fd_binary()
-  for _, binary in ipairs({'fdfind', 'fd'}) do
-    if vim.fn.executable(binary) == 1 then
-      return binary
-    end
-  end
-
-  error("fd not found, is fd installed?")
-end
-
-
-local function call_picker(opts, command)
+local function call_picker(opts, command, prompt_title_supplement)
   opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
 
+  local prompt_title = 'Git repositories'
+  if prompt_title_supplement ~= nil then
+    prompt_title = prompt_title .. prompt_title_supplement
+  end
   pickers.new(opts, {
-    prompt_title = 'Git repositories',
+    prompt_title = prompt_title,
     finder = finders.new_oneshot_job(
       command,
       opts
@@ -156,7 +148,18 @@ M.cached_list = function(opts)
 
   local repo_pattern = opts.pattern or [[/\.git$]] -- We match on the whole path
   local locate_command = {bin, '-r', repo_pattern}
-  call_picker(opts, locate_command)
+  call_picker(opts, locate_command, ' (cached)')
+end
+
+-- Find under what name fd is installed
+local function find_fd_binary()
+  for _, binary in ipairs({'fdfind', 'fd'}) do
+    if vim.fn.executable(binary) == 1 then
+      return binary
+    end
+  end
+
+  error("fd not found, is fd installed?")
 end
 
 -- Always up to date list of repos built using fd
@@ -180,6 +183,8 @@ M.list = function(opts)
   table.insert(fd_command, find_exec_opts)
   table.insert(fd_command, find_pattern_opts)
   fd_command = vim.tbl_flatten(fd_command)
+
+  call_picker(opts, fd_command, ' (built on the fly)')
 end
 
 return M
