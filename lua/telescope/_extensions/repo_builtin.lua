@@ -75,14 +75,24 @@ local function gen_from_fd(opts)
   end
 end
 
+-- Wrap entries to remove the part we used to detect the VCS. For instance, for git:
+-- - we get entries like “/home/me/repo/.git”
+-- - we want to send entries like “/home/me/repo”
+local function gen_from_locate_wrapper(opts)
+  -- TODO Make this a wrapper over any function, not just gen_from_fd
+  -- TODO It’s not great for performance to parse paths in the whole list like this
+  return function(line_with_dotgit)
+    local line = Path:new(line_with_dotgit):parent().filename
+    return gen_from_fd(opts)(line)
+  end
+end
+
 local function project_files(opts)
   local ok = pcall(require'telescope.builtin'.git_files, opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
 local function call_picker(opts, command, prompt_title_supplement)
-  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
-
   local prompt_title = 'Git repositories'
   if prompt_title_supplement ~= nil then
     prompt_title = prompt_title .. prompt_title_supplement
@@ -133,6 +143,7 @@ end
 -- List of repos built using locate (or variants)
 M.cached_list = function(opts)
   opts = opts or {}
+  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
   opts.cwd = vim.env.HOME
   opts.bin = opts.bin and vim.fn.expand(opts.bin) or nil
   -- Use alternative locate if possible
@@ -166,6 +177,7 @@ end
 -- Always up to date list of repos built using fd
 M.list = function(opts)
   opts = opts or {}
+  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
   opts.bin = opts.bin or find_fd_binary()
   opts.cwd = vim.env.HOME
 
