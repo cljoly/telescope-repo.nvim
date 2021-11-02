@@ -137,6 +137,28 @@ local function call_picker(opts, command)
   }):find()
 end
 
+-- List of repos built using locate (or variants)
+M.cached_list = function(opts)
+  opts = opts or {}
+  opts.cwd = vim.env.HOME
+  opts.bin = opts.bin and vim.fn.expand(opts.bin) or nil
+  -- Use alternative locate if possible
+  if opts.bin == nil then
+    if vim.fn.executable'plocate' == 1 then
+      opts.bin = 'plocate'
+    elseif vim.fn.executable'locate' == 1 then -- Fallback
+      opts.bin = 'locate'
+    else
+      error "Please install locate (or one of its alternatives)"
+    end
+  end
+  local bin = vim.fn.expand(opts.bin)
+
+  local repo_pattern = opts.pattern or [[/\.git$]] -- We match on the whole path
+  local locate_command = {bin, '-r', repo_pattern}
+  call_picker(opts, locate_command)
+end
+
 -- Always up to date list of repos built using fd
 M.list = function(opts)
   opts = opts or {}
