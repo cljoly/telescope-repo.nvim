@@ -82,9 +82,12 @@ use {
 
 ### Required
 
-* [`fd`][] to find the repositories on the filesystem
+* [`fd`][] to find the repositories on the filesystem with `list`
+* [`plocate`][] or [`locate`][] to find the repositories on the filesystem with `cached_list`
 
 [`fd`]: https://github.com/sharkdp/fd
+[`locate`]: https://man.archlinux.org/man/locate.1
+[`plocate`]: https://man.archlinux.org/man/plocate.1
 
 ### Optional
 
@@ -175,12 +178,54 @@ Here is how you can use this plugin with various SCM:
 
 Is your favorite SCM missing? It should be straightforward to support it by changing the pattern parameter. If you want it to be considered for addition here, open a PR!
 
+### cached_list
+
+`:Telescope repo cached_list`
+
+This relies on a `locate` command to find repositories. This should be much faster than the `list` command, as it relies on a pre-built index but results may be stalled.
+
+*Note*: at this point, the plugin does not manage index update. Updating the index often requires to run a command like `updatedb` as root.
+
+#### Troubleshooting
+
+You should try to run:
+```
+sudo updatedb
+```
+if you encounter any problems. If it’s not the case by default, you should automate such index update with for instance `cron` or `systemd-timers`. See https://wiki.archlinux.org/title/Locate.
+
+#### Options
+
+Options are the similar to `repo list`, bearing in mind that we use `locate` instead of `fd`. Note that:
+
+* `fd_opts` is not supported, as we don’t use `fd`
+
+#### Examples
+
+##### Exclude Irrelevant Results
+
+Chances are you will get results from folders you don’t care about like `.cache` or `.cargo`. In that case, you can use the `file_ignore_patterns` option of Telescope, like so (these are lua regexes):
+
+```
+:lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={'.cache/', '.cargo/'}}
+```
+
+##### Use With Other SCMs
+
+Here is how you can use this plugin with various SCM (we match on the whole path with `locate`, so patterns differ slightly from `repo list`: notice the `^` that becomes a `/`):
+
+| SCM    | Command                                                                    |
+|--------|----------------------------------------------------------------------------|
+| git    | `:Telescope repo list` or `lua require'telescope'.extensions.repo.list{}`  |
+| pijul  | `lua require'telescope'.extensions.repo.list{pattern=[[/\.pijul$]]}`       |
+| hg     | `lua require'telescope'.extensions.repo.list{pattern=[[/\.hg$]]}`          |
+| fossil | `lua require'telescope'.extensions.repo.list{pattern=[[/\.fslckout$]]}`    |
+
 ## FAQ
 
 ### Getting the repository list is slow
 
-You can use your `.fdignore` to exclude some folders from your filesystem. You can even use a custom ignore file with the `--ignore-file` option, like so:
-
+If `:Telescope repo list` is slow, you can use your `.fdignore` to exclude some folders from your filesystem. . You can even use a custom ignore file with the `--ignore-file` option, like so:
 ```
 lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile]]}
 ```
