@@ -179,3 +179,8 @@ Is your favorite SCM missing? It should be straightforward to support it by chan
 
 You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this.
 
+## Contribute
+
+Contributions are welcome, see this [document](https://cj.rs/docs/contribute/)!
+
+The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful.
