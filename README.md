@@ -126,7 +126,7 @@ Transform the result paths into relative ones with this value as the base dir.
 
 Default value: `vim.fn.getcwd()`
 
-#### `fd_opts`
+##### `fd_opts`
 
 **This is a relatively advanced option that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions**
 
