@@ -121,7 +121,7 @@ M.list = function(opts)
         end
         if doc then
           if is_mardown and vim.fn.executable'glow' == 1 then
-            return {'glow', doc.filename}
+            return {'glow', '-p', doc.filename}
           elseif vim.fn.executable'bat' == 1 then
             return {'bat', '--style', 'header,grid', doc.filename}
           end
