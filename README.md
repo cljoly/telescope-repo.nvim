@@ -65,6 +65,8 @@ And optionally, to load the extension:
 require'telescope'.load_extension'repo'
 ```
 
+A handy companion plugin is [vim-rooter](https://github.com/airblade/vim-rooter), as it’ll change the current directory according to the current file’s detected project (often, the root of the git repository).
+
 ### Packer
 
 For instance, with [Packer.nvim](https://github.com/wbthomason/packer.nvim):
@@ -177,7 +179,11 @@ Is your favorite SCM missing? It should be straightforward to support it by chan
 
 ### Getting the repository list is slow
 
-You can use your `.fdignore` to exclude some folders from your filesystem. If there is enough interest, [#1](https://github.com/cljoly/telescope-repo.nvim/issues/1) could further enhance this.
+You can use your `.fdignore` to exclude some folders from your filesystem. You can even use a custom ignore file with the `--ignore-file` option, like so:
+
+```
+lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile]]}
+```
 
 ## Contribute
 
