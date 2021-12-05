@@ -79,14 +79,24 @@ local function project_files(opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
+-- Find under what name fd is installed
+local function find_fd_binary()
+  for _, binary in ipairs({'fd', 'fdfind'}) do
+    if vim.fn.executable(binary) == 1 then
+      return binary
+    end
+  end
+
+  error("fd not found, is fd installed?")
+end
+
 M.list = function(opts)
   opts = opts or {}
-  opts.bin = opts.bin and vim.fn.expand(opts.bin) or 'fd'
+  opts.bin = opts.bin or find_fd_binary()
   opts.cwd = vim.env.HOME
   opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_ghq, opts)
 
-  local bin = vim.fn.expand(opts.bin)
-  local fd_command = {bin}
+  local fd_command = {opts.bin}
   local repo_pattern = opts.pattern or [[^\.git$]]
 
   -- Don’t filter only on directories with fd as git worktrees actually have a
