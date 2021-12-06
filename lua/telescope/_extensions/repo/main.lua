@@ -145,9 +145,10 @@ local function call_picker(opts, command, prompt_title_supplement)
         local entry = actions_state.get_selected_entry()
         local dir = from_entry.path(entry)
         if type == 'default' then
-          actions._close(prompt_bufnr, true)
           project_files{cwd = dir}
+          return
         end
+        actions.close(prompt_bufnr, true)
       end)
       return true
     end,
