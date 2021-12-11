@@ -17,7 +17,7 @@ end
 
 -- Find under what name locate is installed, prioritizing more “modern” locate
 M.find_locate_binary = function()
-  return find_binary({ "plocate", "locate" })
+  return find_binary({ "plocate", "glocate", "locate" })
 end
 
 return M
