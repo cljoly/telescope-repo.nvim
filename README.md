@@ -234,7 +234,7 @@ Here is how you can use this plugin with various SCM (we match on the whole path
 
 ### No repositories are found
 
-Make sure that `checkhealth telescope` shows something like:
+Make sure that `:checkhealth telescope` shows something like:
 ```markdown
 ## Telescope Extension: `repo`
   - OK: fd: found `fd`
@@ -247,7 +247,7 @@ The output of this command may point to missing dependencies.
 
 ### Getting the repository list is slow
 
-If `:Telescope repo list` is slow, you can use your `.fdignore` to exclude some folders from your filesystem. . You can even use a custom ignore file with the `--ignore-file` option, like so:
+If `:Telescope repo list` is slow, you can use your `.fdignore` to exclude some folders from your filesystem. You can even use a custom ignore file with the `--ignore-file` option, like so:
 ```
 lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile]]}
 ```
