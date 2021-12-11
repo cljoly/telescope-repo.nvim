@@ -1,3 +1,5 @@
+local os_home = vim.loop.os_homedir()
+-- External dependancies
 local actions = require'telescope.actions'
 local actions_set = require'telescope.actions.set'
 local actions_state = require'telescope.actions.state'
@@ -8,10 +10,11 @@ local from_entry = require'telescope.from_entry'
 local log = require "telescope.log"
 local pickers = require'telescope.pickers'
 local previewers = require'telescope.previewers'
-local utils = require'telescope.utils'
+local t_utils = require'telescope.utils'
 local Path = require'plenary.path'
 
-local os_home = vim.loop.os_homedir()
+-- Other modules in this plugin
+local utils = require'telescope._extensions.repo.utils'
 
 local M = {}
 
@@ -146,18 +149,11 @@ end
 -- List of repos built using locate (or variants)
 M.cached_list = function(opts)
   opts = opts or {}
-  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
+  opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
   opts.cwd = vim.env.HOME
-  opts.bin = opts.bin and vim.fn.expand(opts.bin) or nil
-  -- Use alternative locate if possible
-  if opts.bin == nil then
-    if vim.fn.executable'plocate' == 1 then
-      opts.bin = 'plocate'
-    elseif vim.fn.executable'locate' == 1 then -- Fallback
-      opts.bin = 'locate'
-    else
-      error "Please install locate (or one of its alternatives)"
-    end
+  opts.bin = opts.bin or utils.find_locate_binary()
+  if opts.bin == "" then
+    error "Please install locate (or one of its alternatives)"
   end
   local bin = vim.fn.expand(opts.bin)
 
@@ -169,22 +165,14 @@ M.cached_list = function(opts)
   call_picker(opts, locate_command, ' (cached)')
 end
 
--- Find under what name fd is installed
-local function find_fd_binary()
-  for _, binary in ipairs({'fdfind', 'fd'}) do
-    if vim.fn.executable(binary) == 1 then
-      return binary
-    end
-  end
-
-  error("fd not found, is fd installed?")
-end
-
 -- Always up to date list of repos built using fd
 M.list = function(opts)
   opts = opts or {}
-  opts.entry_maker = utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
-  opts.bin = opts.bin or find_fd_binary()
+  opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
+  opts.bin = opts.bin or utils.find_fd_binary()
+  if opts.bin == "" then
+    error("fd not found, is fd installed?")
+  end
   opts.cwd = vim.env.HOME
 
   local fd_command = {opts.bin}

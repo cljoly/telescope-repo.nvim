@@ -1,8 +1,10 @@
-local repo_builtin = require'telescope._extensions.repo_builtin'
+local main = require'telescope._extensions.repo.main'
+local health = require'telescope._extensions.repo.health'
 
 return require'telescope'.register_extension{
+  health = health.check,
   exports = {
-    list = repo_builtin.list,
-    cached_list = repo_builtin.cached_list,
+    list = main.list,
+    cached_list = main.cached_list,
   },
 }
