@@ -204,10 +204,19 @@ Options are the similar to `repo list`, bearing in mind that we use `locate` ins
 
 ##### Exclude Irrelevant Results
 
-Chances are you will get results from folders you don’t care about like `.cache` or `.cargo`. In that case, you can use the `file_ignore_patterns` option of Telescope, like so (these are lua regexes):
+Chances are you will get results from folders you don’t care about like `.cache` or `.cargo`. In that case, you can use the `file_ignore_patterns` option of Telescope, like so (these are [Lua regexes](https://www.lua.org/manual/5.1/manual.html#5.4.1)).
 
+Hide all git repositories that may be in `.cache` or `.cargo`:
+```lua
+:lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={"/%.cache/", "/%.cargo/"}}
 ```
-:lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={'.cache/', '.cargo/'}}
+###### Notes
+
+* These patterns are used to filter the output of the `locate` command, so they don’t speed up the search in any way. You should use them mainly to exclude git repositories you won’t want to jump into, not in the hope to enhance performance.
+* The `%.` in Lua regex is an escaped `.` as `.` matches any characters.
+* These patterns are applied against whole paths like `/home/myuser/.cache/some/dir`, so if you want to exclude only `/home/myuser/.cache`, you need a more complicated pattern like so:
+```lua
+:lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={"^".. vim.env.HOME .. "/%.cache/", "^".. vim.env.HOME .. "/%.cargo/"}}
 ```
 
 ##### Use With Other SCMs
