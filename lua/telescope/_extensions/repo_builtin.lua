@@ -81,7 +81,7 @@ end
 
 -- Find under what name fd is installed
 local function find_fd_binary()
-  for _, binary in ipairs({'fd', 'fdfind'}) do
+  for _, binary in ipairs({'fdfind', 'fd'}) do
     if vim.fn.executable(binary) == 1 then
       return binary
     end
