@@ -232,6 +232,19 @@ Here is how you can use this plugin with various SCM (we match on the whole path
 
 ## FAQ
 
+### No repositories are found
+
+Make sure that `checkhealth telescope` shows something like:
+```markdown
+## Telescope Extension: `repo`
+  - OK: fd: found `fd`
+    fd 8.3.0
+  - OK: locate: found `plocate`
+    plocate 1.1.13
+```
+
+The output of this command may point to missing dependencies.
+
 ### Getting the repository list is slow
 
 If `:Telescope repo list` is slow, you can use your `.fdignore` to exclude some folders from your filesystem. . You can even use a custom ignore file with the `--ignore-file` option, like so:
