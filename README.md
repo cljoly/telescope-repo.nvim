@@ -252,7 +252,7 @@ Make sure that `:checkhealth telescope` shows something like:
   - INFO: Repos found for `:Telescope repo list`:
     /home/cj/tmp/git_rst, /home/cj/qmk_firmware...
 ```
-**This may take a few seconds to run **
+**This may take a few seconds to run**
 
 The output of this command may point to missing dependencies.
 
