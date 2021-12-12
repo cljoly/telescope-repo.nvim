@@ -18,11 +18,21 @@ local utils = require'telescope._extensions.repo.utils'
 
 local M = {}
 
-local function search_readme(dir)
+local function search_markdown_readme(dir)
   for _, name in pairs{
     'README', 'README.md', 'README.markdown', 'README.mkd',
   } do
     local file = dir / name
+    if file:is_file() then return file end
+  end
+  return nil
+end
+
+local function search_generic_readme(dir)
+  local doc_path = Path:new(dir, 'README.*')
+  local maybe_doc = vim.split(vim.fn.glob(doc_path.filename), '\n')
+  for _, filepath in pairs(maybe_doc) do
+    local file = Path:new(filepath)
     if file:is_file() then return file end
   end
   return nil
@@ -112,23 +122,19 @@ local function call_picker(opts, command, prompt_title_supplement)
     previewer = previewers.new_termopen_previewer{
       get_command = function(entry)
         local dir = Path:new(from_entry.path(entry))
-        local doc = search_readme(dir)
-        local is_mardown
+        local doc = search_markdown_readme(dir)
         if doc then
-          is_mardown = true
-        else
+          return utils.find_markdown_previewer_for_document(doc.filename)
+        end
+        doc = search_generic_readme(dir)
+        if not doc then
           -- TODO: doc may be previewed in a plain text. Can I use syntax highlight?
           doc = search_doc(dir)
         end
-        if doc then
-          if is_mardown and vim.fn.executable'glow' == 1 then
-            return {'glow', '-p', doc.filename}
-          elseif vim.fn.executable'bat' == 1 then
-            return {'bat', '--style', 'header,grid', doc.filename}
-          end
-          return {'cat', doc.filename}
+        if not doc then
+          return {'echo', ''}
         end
-        return {'echo', ''}
+        return utils.find_generic_previewer_for_document(doc.filename)
       end,
     },
     sorter = conf.file_sorter(opts),
