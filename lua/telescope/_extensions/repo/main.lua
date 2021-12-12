@@ -15,6 +15,8 @@ local Path = require'plenary.path'
 
 -- Other modules in this plugin
 local utils = require'telescope._extensions.repo.utils'
+local list = require'telescope._extensions.repo.list'
+local cached_list = require'telescope._extensions.repo.cached_list'
 
 local M = {}
 
@@ -156,17 +158,7 @@ end
 M.cached_list = function(opts)
   opts = opts or {}
   opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
-  opts.cwd = vim.env.HOME
-  opts.bin = opts.bin or utils.find_locate_binary()
-  if opts.bin == "" then
-    error "Please install locate (or one of its alternatives)"
-  end
-  local bin = vim.fn.expand(opts.bin)
-
-  local repo_pattern = opts.pattern or [[/\.git$]] -- We match on the whole path
-  local locate_opts = opts.locate_opts or {}
-  local locate_command = vim.tbl_flatten{{bin}, locate_opts, {'-r', repo_pattern}}
-  log.trace("locate_command: "..vim.inspect(locate_command))
+  local locate_command = cached_list.prepare_command(opts)
 
   call_picker(opts, locate_command, ' (cached)')
 end
@@ -175,27 +167,7 @@ end
 M.list = function(opts)
   opts = opts or {}
   opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
-  opts.bin = opts.bin or utils.find_fd_binary()
-  if opts.bin == "" then
-    error("fd not found, is fd installed?")
-  end
-  opts.cwd = vim.env.HOME
-
-  local fd_command = {opts.bin}
-  local repo_pattern = opts.pattern or [[^\.git$]]
-
-  -- Don’t filter only on directories with fd as git worktrees actually have a
-  -- .git file in them.
-  local find_repo_opts = {'--hidden', '--case-sensitive', '--absolute-path'}
-  local find_user_opts = opts.fd_opts or {}
-  local find_exec_opts = {'--exec', 'echo', [[{//}]], ';'}
-  local find_pattern_opts = {repo_pattern}
-
-  table.insert(fd_command, find_repo_opts)
-  table.insert(fd_command, find_user_opts)
-  table.insert(fd_command, find_exec_opts)
-  table.insert(fd_command, find_pattern_opts)
-  fd_command = vim.tbl_flatten(fd_command)
+  local fd_command = list.prepare_command(opts)
 
   call_picker(opts, fd_command, ' (built on the fly)')
 end
