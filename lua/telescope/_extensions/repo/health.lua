@@ -11,21 +11,25 @@ local function get_version(binary)
 	return version
 end
 
-M.check = function()
+local function check_list_cmd()
 	fd_bin = utils.find_fd_binary()
 	if fd_bin ~= "" then
 		health.report_ok("fd: found `" .. fd_bin .. "`\n" .. get_version(fd_bin))
 	else
 		health.report_error("`list` will not function without [fd](https://github.com/sharkdp/fd)")
 	end
+end
 
+local function check_cached_list_cmd()
 	locate_bin = utils.find_locate_binary()
 	if locate_bin ~= "" then
 		health.report_ok("locate: found `" .. locate_bin .. "`\n" .. get_version(locate_bin))
 	else
 		health.report_error("`cached_list` will not function without locate")
 	end
+end
 
+local function check_previewer()
 	markdown_bin = utils.find_markdown_previewer_for_document("test_doc.md")
 	if markdown_bin[1] ~= utils._markdown_previewer[1][1] then
 		health.report_warn("Install `" .. utils._markdown_previewer[1][1] .. "` for a better preview of markdown files")
@@ -39,6 +43,12 @@ M.check = function()
 		)
 	end
 	health.report_info("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
+end
+
+M.check = function()
+	check_list_cmd()
+	check_cached_list_cmd()
+	check_previewer()
 end
 
 return M
