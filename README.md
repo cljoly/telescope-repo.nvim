@@ -237,11 +237,22 @@ Here is how you can use this plugin with various SCM (we match on the whole path
 Make sure that `:checkhealth telescope` shows something like:
 ```markdown
 ## Telescope Extension: `repo`
-  - OK: fd: found `fd`
-    fd 8.3.0
+  - OK: Will use `glow` to preview markdown READMEs
+  - OK: Will use `bat` to preview non-markdown READMEs
   - OK: locate: found `plocate`
     plocate 1.1.13
+    Copyright 2020 Steinar H. Gunderson
+    License GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl.html>.
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.
+  - INFO: Repos found for `:Telescope repo cached_list`:
+    /home/cj/.cache/yay/android-sdk/.git, /home/cj/.cache/yay/android-sdk-platform-tools/.git...
+  - OK: fd: found `fd`
+    fd 8.3.0
+  - INFO: Repos found for `:Telescope repo list`:
+    /home/cj/tmp/git_rst, /home/cj/qmk_firmware...
 ```
+**This may take a few seconds to run **
 
 The output of this command may point to missing dependencies.
 
