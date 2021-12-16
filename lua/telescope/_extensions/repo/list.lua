@@ -30,4 +30,17 @@ M.prepare_command = function(opts)
   return fd_command
 end
 
+--[[
+TODO “Smart” list that
+  1. reads the content of a cache file stored in vim.fn.stdpath("data") and prints it to stdout
+  2. “on the same stdout”, runs fd piped into tee to udpate the cache
+  3. awk is used to deduplicate. Stale entries are shown only once
+  4. mv the new cache to replace the old cache
+```fish
+begin cat /tmp/cache; fd | tee /tmp/cache; end | awk 'seen[$0]++ == 0'
+```
+drawbacks:
+* increased memory and CPU consumption due to the deduplication
+--]]
+
 return M
