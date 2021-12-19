@@ -110,6 +110,10 @@ local function project_files(opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
 
+local function project_live_grep(opts)
+  require'telescope.builtin'.live_grep(opts)
+end
+
 local function call_picker(opts, command, prompt_title_supplement)
   local prompt_title = 'Git repositories'
   if prompt_title_supplement ~= nil then
@@ -148,7 +152,16 @@ local function call_picker(opts, command, prompt_title_supplement)
           project_files{cwd = dir}
           return
         end
-        actions.close(prompt_bufnr, true)
+        if type == 'vertical' then
+          project_live_grep{cwd = dir}
+          return
+        end
+        if type == 'tab' then
+          vim.cmd("tabe "..dir)
+          vim.cmd("tcd "..dir)
+          project_files{cwd = dir}
+          return
+        end
       end)
       return true
     end,
