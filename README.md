@@ -65,7 +65,10 @@ And optionally, to load the extension:
 require'telescope'.load_extension'repo'
 ```
 
-A handy companion plugin is [vim-rooter](https://github.com/airblade/vim-rooter), as it’ll change the current directory according to the current file’s detected project (often, the root of the git repository).
+A handy companion plugin is [vim-rooter](https://github.com/airblade/vim-rooter), as it’ll change the current directory according to the current file’s detected project (often, the root of the git repository). To get it to change each *buffer’s* directory, instead of the whole editor by default, add the following Lua to your configuration:
+```lua
+g['rooter_cd_cmd'] = 'lcd'
+```
 
 ### Packer
 
