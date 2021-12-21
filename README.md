@@ -273,3 +273,17 @@ lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile
 Contributions are welcome, see this [document](https://cj.rs/docs/contribute/)!
 
 The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful.
+
+## Changelog
+
+### 0.2.0
+
+* Add support for `checkhealth`
+* Add picker that builds the list of repositories from `locate`, thus taking profit of a system-wide index.
+* Add mappings leading to various actions
+* Preview non-markdown Readme file
+
+### 0.1.0
+
+* Basic feature, generate a dynamic project list with `fd`
+* Falls back to file listing if we are not in a `git` repository
