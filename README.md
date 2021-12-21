@@ -110,6 +110,8 @@ Running `repo list` and list repositories' paths.
 | key              | action               |
 |------------------|----------------------|
 | `<CR>` (edit)    | `builtin.git_files` for git, falls back to `builtin.find_files` for other SCMs |
+| `<C-v>` (vertical)    | `builtin.live_grep` in the selected project |
+| `<C-t>` (tab) | Same as `<CR>` but opens a new tab. Also, does a `cd` into the project’s directory for this tab only |
 
 #### Options
 
