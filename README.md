@@ -54,7 +54,7 @@ Use cases include:
 
 ## Installation
 
-You need to add these in your plugin management system:
+You need to add these in your plugin management system[^2]:
 ```lua
 'nvim-lua/plenary.nvim'
 'nvim-telescope/telescope.nvim'
@@ -273,6 +273,12 @@ lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile
 Contributions are welcome, see this [document](https://cj.rs/docs/contribute/)!
 
 The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful.
+
+## Stability
+
+We understand that you need a reliable plugin that ideally never breaks. To this end, code changes are first tested on our machines in a separate `dev` branch and once we are reasonably confident that changes don’t have unintended side-effects, they get merged to master, where a wider user-base will get the changes. We also often tag releases, holding a more mature, coherent set of changes. If you are especially paranoid, instruct your package manager to install the version pointed by a particular tag. Conversely, if you wish to live on the bleeding-edge, instruct your package manager to use the `dev` branch.
+
+[^2]: See also [Stability](#stability)
 
 ## Changelog
 
