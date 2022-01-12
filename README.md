@@ -191,13 +191,13 @@ This relies on a `locate` command to find repositories. This should be much fast
 
 *Note*: at this point, the plugin does not manage index update. Updating the index often requires to run a command like `updatedb` as root.
 
-#### MacOS
+#### Notes for MacOS
 
 `glocate` command used for caching on macos comes with gnu `findutils` which can be installed with
 ```bash
 brew install findutils
 ```
-With `glocate` installed use
+With `glocate` installed use, add the following to your `.bashrc`/`.zshrc`
 
 ``` bash
 # https://egeek.me/2020/04/18/enabling-locate-on-osx/
@@ -214,10 +214,10 @@ alias loaddb="gupdatedb --localpaths=$HOME --prunepaths=/Volumes --output=$HOME/
 ```
 
 After you have run `loaddb` the first time you need to reload the shell to make sure that it
-exports the LOCATE_PATH variable.
+exports the `LOCATE_PATH` variable.
 
 
-#### todo cached_list
+#### TODO cached_list
 
 Provide instructions on how to setup periodic update of the locate database.
 
