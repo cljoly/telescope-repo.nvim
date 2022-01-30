@@ -19,13 +19,20 @@ M.prepare_command = function(opts)
     local find_repo_opts = { "--hidden", "--case-sensitive", "--absolute-path" }
     local find_user_opts = opts.fd_opts or {}
     local find_exec_opts = { "--exec", "echo", [[{//}]], ";" }
-    local find_pattern_opts = { repo_pattern }
+
+    -- Expand '~'
+    local search_dirs = {}
+    for i, d in ipairs(opts.search_dirs) do
+        search_dirs[i] = vim.fn.expand(d)
+    end
 
     table.insert(fd_command, find_repo_opts)
     table.insert(fd_command, find_user_opts)
     table.insert(fd_command, find_exec_opts)
-    table.insert(fd_command, find_pattern_opts)
+    table.insert(fd_command, repo_pattern)
+    table.insert(fd_command, search_dirs)
     fd_command = vim.tbl_flatten(fd_command)
+    print(vim.inspect(fd_command))
 
     return fd_command
 end
