@@ -27,7 +27,7 @@ local function find_repos(opts, cmd_with_args, telescope_cmd)
 			local some_repos = vim.list_slice(j:result(), 1, max_repo)
 			health.report_info("Repos found for `"..telescope_cmd.."`:\n"..table.concat(some_repos, ", ").."...")
 		else
-			health.report_error("`"..telescope_cmd.."` was unsucessful. Exit code: "..tostring(j.code).."\n"..j.command.." "..table.concat(j.args, " ").."\n "..table.concat(j:result(), "\n")..table.concat(j:stderr_result(), "\n"))
+			health.report_error("`"..telescope_cmd.."` was unsuccessful. Exit code: "..tostring(j.code).."\n"..j.command.." "..table.concat(j.args, " ").."\n "..table.concat(j:result(), "\n")..table.concat(j:stderr_result(), "\n"))
 		end
 end
 
@@ -50,8 +50,16 @@ local function check_cached_list_cmd()
 		health.report_ok("locate: found `" .. locate_bin .. "`\n" .. get_version(locate_bin))
 
 		local opts = {}
+
 		local command_with_args = cached_list.prepare_command(opts)
-		command_with_args = vim.tbl_flatten({command_with_args, {'-l', tostring(max_repo)}})
+
+                -- lolcate doesn't have limit functionality.
+                if locate_bin == "lolcate" then
+		    command_with_args = {locate_bin, '--info'}
+                else
+		    command_with_args = vim.tbl_flatten({command_with_args, {'-l', tostring(max_repo)}})
+                end
+
 		find_repos(opts, command_with_args, ':Telescope repo cached_list')
 	else
 		health.report_error("`cached_list` will not function without locate")
