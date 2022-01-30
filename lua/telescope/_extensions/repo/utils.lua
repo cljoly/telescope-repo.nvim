@@ -19,7 +19,7 @@ end
 
 -- Find under what name locate is installed, prioritizing more “modern” locate
 M.find_locate_binary = function()
-	return find_binary({ "plocate", "glocate", "locate" })
+	return find_binary({ "plocate", "lolcate", "glocate", "locate" })
 end
 
 M._generic_previewer = { { "bat", "--style", "header,grid" }, { "cat" } }
