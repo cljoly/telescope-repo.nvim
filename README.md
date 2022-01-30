@@ -86,11 +86,12 @@ use {
 ### Required
 
 * [`fd`][] to find the repositories on the filesystem with `list`
-* [`plocate`][] or [`locate`][] to find the repositories on the filesystem with `cached_list`
+* [`plocate`][], [`lolcate-rs`][] or [`locate`][] to find the repositories on the filesystem with `cached_list`
 
 [`fd`]: https://github.com/sharkdp/fd
 [`locate`]: https://man.archlinux.org/man/locate.1
 [`plocate`]: https://man.archlinux.org/man/plocate.1
+[`lolcate-rs`]: https://github.com/ngirard/lolcate-rs
 
 ### Optional
 
