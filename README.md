@@ -306,6 +306,14 @@ Contributions are welcome, see this [document](https://cj.rs/docs/contribute/)!
 
 The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful.
 
+### Code Formatting
+
+[StyLua](https://github.com/johnnymorganz/stylua) is used for code formatting. It is run like so:
+
+```bash
+stylua lua
+```
+
 ## Stability
 
 We understand that you need a reliable plugin that never breaks. To this end, code changes are first tested on our machines in a separate `dev` branch and once we are reasonably confident that changes don’t have unintended side-effects, they get merged to the `master` branch, where a wider user-base will get the changes. We also often tag releases, holding a more mature, coherent set of changes. If you are especially sensitive to changes, instruct your package manager to install the version pointed by a particular tag and watch for new releases [on GitHub](https://github.blog/changelog/2018-11-27-watch-releases/) or [via RSS](https://ronaldsvilcins.com/2020/03/26/rss-feeds-for-your-github-releases-tags-and-activity/). Conversely, if you wish to live on the bleeding-edge, instruct your package manager to use the `dev` branch.
