@@ -121,16 +121,14 @@ local function gen_from_locate_wrapper(opts)
 end
 
 local function project_files(opts)
-    vim.schedule(function()
         local ok = pcall(require("telescope.builtin").git_files, opts)
         if not ok then
             require("telescope.builtin").find_files(opts)
         end
-    end)
 end
 
 local function project_live_grep(opts)
-    require("telescope.builtin").live_grep(opts)
+        require("telescope.builtin").live_grep(opts)
 end
 
 local function call_picker(opts, command, prompt_title_supplement)
@@ -165,8 +163,9 @@ local function call_picker(opts, command, prompt_title_supplement)
                 local entry = actions_state.get_selected_entry()
                 local dir = from_entry.path(entry)
                 if type == "default" then
-                    project_files({ cwd = dir })
-                    return
+                    vim.schedule(function()
+                        project_files({ cwd = dir })
+                    end)
                 end
                 if type == "vertical" then
                     project_live_grep({ cwd = dir })
