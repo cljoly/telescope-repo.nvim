@@ -121,14 +121,14 @@ local function gen_from_locate_wrapper(opts)
 end
 
 local function project_files(opts)
-        local ok = pcall(require("telescope.builtin").git_files, opts)
-        if not ok then
-            require("telescope.builtin").find_files(opts)
-        end
+    local ok = pcall(require("telescope.builtin").git_files, opts)
+    if not ok then
+        require("telescope.builtin").find_files(opts)
+    end
 end
 
 local function project_live_grep(opts)
-        require("telescope.builtin").live_grep(opts)
+    require("telescope.builtin").live_grep(opts)
 end
 
 local function call_picker(opts, command, prompt_title_supplement)
