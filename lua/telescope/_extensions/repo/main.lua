@@ -121,10 +121,12 @@ local function gen_from_locate_wrapper(opts)
 end
 
 local function project_files(opts)
-    local ok = pcall(require("telescope.builtin").git_files, opts)
-    if not ok then
-        require("telescope.builtin").find_files(opts)
-    end
+    vim.schedule(function()
+        local ok = pcall(require("telescope.builtin").git_files, opts)
+        if not ok then
+            require("telescope.builtin").find_files(opts)
+        end
+    end)
 end
 
 local function project_live_grep(opts)
