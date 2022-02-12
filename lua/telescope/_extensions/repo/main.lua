@@ -131,10 +131,6 @@ local function project_live_grep(opts)
     require("telescope.builtin").live_grep(opts)
 end
 
-local function project_git_status(opts)
-    require("telescope.builtin").git_status(opts)
-end
-
 local function call_picker(opts, command, prompt_title_supplement)
     local prompt_title = "Git repositories"
     if prompt_title_supplement ~= nil then
@@ -172,10 +168,6 @@ local function call_picker(opts, command, prompt_title_supplement)
                 end
                 if type == "vertical" then
                     project_live_grep({ cwd = dir })
-                    return
-                end
-                if type == "horizontal" then
-                    project_git_status({ cwd = dir })
                     return
                 end
                 if type == "tab" then
