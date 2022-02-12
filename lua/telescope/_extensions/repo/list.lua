@@ -1,5 +1,6 @@
 local M = {}
 
+local log = require("telescope.log")
 local utils = require("telescope._extensions.repo.utils")
 
 -- Prepare fd command and change opts accordingly
@@ -32,7 +33,7 @@ M.prepare_command = function(opts)
     table.insert(fd_command, repo_pattern)
     table.insert(fd_command, search_dirs)
     fd_command = vim.tbl_flatten(fd_command)
-    print(vim.inspect(fd_command))
+    log.trace("fd command: " .. vim.inspect(fd_command))
 
     return fd_command
 end
