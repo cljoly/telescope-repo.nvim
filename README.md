@@ -37,7 +37,7 @@ end_insert -->
 <!-- insert
 Finding the repositories with “telescope” in their name, with the README in the panel on the top:
 
-{{< asciicast src="/telescope-repo-nvim/telescope.json" preload=1 loop="true" start-at="1" >}}
+{{< asciicast src="/telescope-repo-nvim/telescope.json" preload=1 loop="true" start-at="1" autoPlay=true >}}
 end_insert -->
 
 Use cases include:
