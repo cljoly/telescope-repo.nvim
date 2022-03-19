@@ -159,6 +159,16 @@ To avoid taking into account the `.gitignore`, we need to pass `--no-ignore-vcs`
 
 This will list `M` and `S` in the Telescope output! The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
 
+##### `search_dirs`
+
+This limits the search to a particular directory or set of directories.
+
+##### Example
+```
+:lua require'telescope'.extensions.repo.list{search_dirs = {"~/ghq/github.com", "~/ghq/git.sr.ht"}}
+:lua require'telescope'.extensions.repo.list{search_dirs = {"~/.local/share/nvim/site/pack"}}
+```
+
 ##### `tail_path`
 
 Show only basename of the path.
@@ -233,9 +243,10 @@ if you encounter any problems. If it’s not the case by default, you should aut
 
 #### Options
 
-Options are the similar to `repo list`, bearing in mind that we use `locate` instead of `fd`. Note that:
+Options are the similar to `repo list`, bearing in mind that we use `locate` instead of `fd`. Note that the following `list` options are not supported in `cached_list`:
 
-* `fd_opts` is not supported, as we don’t use `fd`
+* `fd_opts`, as we don’t use `fd` with `cached_list`,
+* `search_dirs`, as `locate` does not accept a directory to search in.
 
 #### Examples
 
