@@ -330,7 +330,7 @@ make test
 [StyLua](https://github.com/johnnymorganz/stylua) is used for code formatting. It is run like so:
 
 ```bash
-stylua lua
+make fmt
 ```
 
 ## Stability
