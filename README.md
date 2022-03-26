@@ -325,12 +325,17 @@ The telescope [developers documentation](https://github.com/nvim-telescope/teles
 make test
 ```
 
-### Code Formatting
+### Code Formatting & Linting
 
 [StyLua](https://github.com/johnnymorganz/stylua) is used for code formatting. It is run like so:
 
 ```bash
 make fmt
+```
+
+To run the linter:
+```bash
+make lint
 ```
 
 ## Stability
