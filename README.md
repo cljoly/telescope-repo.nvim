@@ -45,6 +45,7 @@ Use cases include:
 * Sometimes, you have the definition of a function and use of it in different repositories  (e.g. a library you wrote and a program using this library). This plugin helps to open the two, for instance in two splits.
 * Use of less popular SCMs: some similar extensions rely on strong conventions to find repositories, like “directories containing a `.git` file that is also a directory, all inside directory `X`”. Less popular SCMs like [Pijul][] have a different folder name, and even [`git worktree`][worktree]s don’t fit neatly into these constraint, with their `.git` *files*.
 
+[plenary]: https://github.com/nvim-lua/plenary.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [Pijul]: https://pijul.org/
 [worktree]: https://git-scm.com/docs/git-worktree
@@ -315,14 +316,26 @@ lua require'telescope'.extensions.repo.list{fd_opts=[[--ignore-file=myignorefile
 
 Contributions are welcome, see this [document](https://cj.rs/docs/contribute/)!
 
-The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful.
+The telescope [developers documentation](https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md) is very useful to understand how plugins work and you may find [these tips](https://cj.rs/blog/tips/nvim-plugin-development/) useful as well.
 
-### Code Formatting
+### Running tests
+
+[Plenary.nvim][plenary] integration tests can be executed with:
+```bash
+make test
+```
+
+### Code Formatting & Linting
 
 [StyLua](https://github.com/johnnymorganz/stylua) is used for code formatting. It is run like so:
 
 ```bash
-stylua lua
+make fmt
+```
+
+To run the linter:
+```bash
+make lint
 ```
 
 ## Stability
