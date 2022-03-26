@@ -23,7 +23,7 @@ M.prepare_command = function(opts)
 
     -- Expand '~'
     local search_dirs = {}
-    for i, d in ipairs(opts.search_dirs) do
+    for i, d in ipairs(opts.search_dirs or {}) do
         search_dirs[i] = vim.fn.expand(d)
     end
 

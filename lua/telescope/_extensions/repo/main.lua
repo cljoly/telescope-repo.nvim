@@ -163,11 +163,16 @@ local function call_picker(opts, command, prompt_title_supplement)
                 local entry = actions_state.get_selected_entry()
                 local dir = from_entry.path(entry)
                 if type == "default" then
-                    project_files({ cwd = dir })
-                    return
+                    actions._close(prompt_bufnr, false)
+                    vim.schedule(function()
+                        project_files({ cwd = dir })
+                    end)
                 end
                 if type == "vertical" then
-                    project_live_grep({ cwd = dir })
+                    actions._close(prompt_bufnr, false)
+                    vim.schedule(function()
+                        project_live_grep({ cwd = dir })
+                    end)
                     return
                 end
                 if type == "tab" then
