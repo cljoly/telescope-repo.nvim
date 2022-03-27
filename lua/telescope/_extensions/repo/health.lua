@@ -16,7 +16,7 @@ local function get_version(binary)
     return version
 end
 
-local function find_repos(opts, cmd_with_args, telescope_cmd)
+local function find_repos(_opts, cmd_with_args, telescope_cmd)
     local j = Job:new({
         command = cmd_with_args[1],
         args = vim.list_slice(cmd_with_args, 2, #cmd_with_args),
@@ -87,7 +87,7 @@ local function check_previewer()
 
     local generic_bin = utils.find_generic_previewer_for_document("test_doc")
     if generic_bin[1] ~= utils._generic_previewer[1][1] then
-        health.report_warn("Install `" .. utils._generic_previewer[1][1] .. "` for a better preview of non-markdown files")
+        health.report_warn("Install `" .. utils._generic_previewer[1][1] .. "` for a better preview of other files")
     end
     health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
 end
