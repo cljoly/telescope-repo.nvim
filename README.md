@@ -10,6 +10,8 @@ tags:
 - NeoVim
 - Lua
 - Plugin
+images:
+- /telescope-repo-nvim/opengraph.webp
 ---
 {{< github_badge >}}
 
