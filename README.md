@@ -121,6 +121,9 @@ You can change the default argument given to subcommands (like [`list`](#list) o
           "value",
         },
       },
+      settings = {
+        auto_lcd = true,
+      }
     },
   },
 }
