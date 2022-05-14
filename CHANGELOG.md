@@ -1,16 +1,4 @@
-<!-- insert
----
-title: "Changelog for telescope-repo.nvim"
-date: 2022-05-14T01:12:16
-tags:
-- NeoVim
-- Lua
-- Plugin
----
-end_insert -->
-<!-- remove -->
 # Changelog
-<!-- end_remove -->
 
 ## 0.2.0
 
