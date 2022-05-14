@@ -323,10 +323,7 @@ The telescope [developers documentation](https://github.com/nvim-telescope/teles
 
 ### Running tests
 
-[Plenary.nvim][plenary] integration tests can be executed with:
-```bash
-make test
-```
+[Plenary.nvim][plenary] integration tests are executed as a part of the CI checks. However, they are very basic for now and you might be better off just testing the two commands locally.
 
 ### Code Formatting & Linting
 
