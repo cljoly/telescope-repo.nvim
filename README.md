@@ -349,4 +349,4 @@ We understand that you need a reliable plugin that never breaks. To this end, co
 
 ## Changelog
 
-See [the changelog](./CHANGELOG)
+See [the changelog](./changelog).
