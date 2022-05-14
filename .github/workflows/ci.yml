@@ -6,6 +6,7 @@ jobs:
   unit_tests:
     name: unit tests
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -51,6 +52,5 @@ jobs:
       - name: Run tests
         run: |
           export PATH="${PWD}/_neovim/bin:${PATH}"
-          export VIM="${PWD}/_neovim/share/nvim/runtime"
           nvim --version
-          make test
+          make test_ci

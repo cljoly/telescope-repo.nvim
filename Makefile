@@ -2,8 +2,8 @@
 
 all: test lint
 
-test:
-	@nvim --headless -c "PlenaryBustedDirectory lua/tests/  { minimal_init = './scripts/minimal_init.vim' }"
+test_ci:
+	@nvim --headless -c "PlenaryBustedDirectory lua/tests/ {}"
 
 fmt:
 	@stylua lua

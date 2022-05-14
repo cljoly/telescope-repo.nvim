@@ -21,14 +21,12 @@ local cached_list = require("telescope._extensions.repo.cached_list")
 local M = {}
 
 local function search_markdown_readme(dir)
-    for _, name in
-        pairs({
-            "README",
-            "README.md",
-            "README.markdown",
-            "README.mkd",
-        })
-    do
+    for _, name in pairs({
+        "README",
+        "README.md",
+        "README.markdown",
+        "README.mkd",
+    }) do
         local file = dir / name
         if file:is_file() then
             return file
