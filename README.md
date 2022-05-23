@@ -236,7 +236,6 @@ exports the `LOCATE_PATH` variable.
 
 Provide instructions on how to setup periodic update of the locate database.
 
-
 #### Troubleshooting
 
 You should try to run:
@@ -345,6 +344,17 @@ We understand that you need a reliable plugin that never breaks. To this end, co
 [^2]: See also [Stability](#stability)
 
 ## Changelog
+
+### 0.3.0
+
+* Add support for `lolcate-rs` as a `cached_list` provider
+* Add an option to restrict the search to some directories
+* Add fallback command so that `:Telescope repo` does not error
+* Fixes:
+    * keep Telescope prompt in insert mode (nvim 0.7+)
+    * the `search_dirs` argument is not mandatory
+* Dev: add tests, CI, formatting with stylua
+* Documentation: update with new features, installation instructions, code formatting reference and other fixes
 
 ### 0.2.0
 
