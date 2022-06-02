@@ -4,7 +4,8 @@ local utils = require("telescope._extensions.repo.utils")
 local list = require("telescope._extensions.repo.list")
 local cached_list = require("telescope._extensions.repo.cached_list")
 
-local health = require("health")
+-- TODO Keep only vim.health once nvim 0.8 is required
+local health = vim.health or require("health")
 
 local Job = require("plenary.job")
 local max_repo = 2
