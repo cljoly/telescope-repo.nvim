@@ -17,6 +17,7 @@ local Path = require("plenary.path")
 local utils = require("telescope._extensions.repo.utils")
 local list = require("telescope._extensions.repo.list")
 local cached_list = require("telescope._extensions.repo.cached_list")
+local r_config = require("telescope._extensions.repo.config")
 
 local M = {}
 
@@ -187,7 +188,7 @@ end
 
 -- List of repos built using locate (or variants)
 M.cached_list = function(opts)
-    opts = opts or {}
+    opts = vim.tbl_deep_extend("force", r_config.values.cached_list or {}, opts or {})
     opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
     local locate_command = cached_list.prepare_command(opts)
 
@@ -196,7 +197,7 @@ end
 
 -- Always up to date list of repos built using fd
 M.list = function(opts)
-    opts = opts or {}
+    opts = vim.tbl_deep_extend("force", r_config.values.list or {}, opts or {})
     opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
     local fd_command = list.prepare_command(opts)
 
