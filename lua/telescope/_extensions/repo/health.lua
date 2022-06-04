@@ -46,7 +46,7 @@ end
 
 local function check_list_cmd()
     local fd_bin = utils.find_fd_binary()
-    if fd_bin ~= "" then
+    if fd_bin then
         health.report_ok("fd: found `" .. fd_bin .. "`\n" .. get_version(fd_bin))
 
         local opts = {}
@@ -59,7 +59,7 @@ end
 
 local function check_cached_list_cmd()
     local locate_bin = utils.find_locate_binary()
-    if locate_bin ~= "" then
+    if locate_bin then
         health.report_ok("locate: found `" .. locate_bin .. "`\n" .. get_version(locate_bin))
 
         local opts = {}
@@ -81,16 +81,26 @@ end
 
 local function check_previewer()
     local markdown_bin = utils.find_markdown_previewer_for_document("test_doc.md")
-    if markdown_bin[1] ~= utils._markdown_previewer[1][1] then
-        health.report_warn("Install `" .. utils._markdown_previewer[1][1] .. "` for a better preview of markdown files")
+    if not markdown_bin then
+        health.report_error("No markdown previewer found, the extension will not work properly")
+    else
+        health.report_ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
+
+        if markdown_bin[1] ~= utils._markdown_previewer[1][1] then
+            health.report_warn("Install `" .. utils._markdown_previewer[1][1] .. "` for a better preview of markdown files")
+        end
     end
-    health.report_ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
 
     local generic_bin = utils.find_generic_previewer_for_document("test_doc")
-    if generic_bin[1] ~= utils._generic_previewer[1][1] then
-        health.report_warn("Install `" .. utils._generic_previewer[1][1] .. "` for a better preview of other files")
+    if not generic_bin then
+        health.report_error("No markdown previewer found, the extension will not work properly")
+    else
+        health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
+
+        if generic_bin[1] ~= utils._generic_previewer[1][1] then
+            health.report_warn("Install `" .. utils._generic_previewer[1][1] .. "` for a better preview of other files")
+        end
     end
-    health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
 end
 
 M.check = function()
