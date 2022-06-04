@@ -106,7 +106,50 @@ use {
 
 ## Usage
 
-### list
+### Global Configuration
+
+You can change the default argument given to subcommands (like [`list`](#list) or [`cached_list`](#cached_list)) using the telescope `setup` function with a table like this:
+
+```lua
+{
+  extensions = {
+    repo = {
+      <subcommand> = {
+        <argument> = {
+          "new",
+          "default",
+          "value",
+        },
+      },
+    },
+  },
+}
+```
+
+for instance, you could do:
+
+```lua
+require("telescope").setup {
+  extensions = {
+    repo = {
+      list = {
+        fd_opts = {
+          "--no-ignore-vcs",
+        },
+        search_dirs = {
+          "~/my_projects",
+        },
+      },
+    },
+  },
+}
+
+require("telescope").load_extension "repo"
+```
+
+**Note**: make sure to have `require("telescope").load_extension "repo"` *after* the call to `require("telescope").setup {…}`, otherwise the global configuration won’t be taken into account.
+
+### `list`
 
 `:Telescope repo list` or `lua require'telescope'.extensions.repo.list{}`
 
@@ -198,7 +241,7 @@ Here is how you can use this plugin with various SCM:
 
 Is your favorite SCM missing? It should be straightforward to support it by changing the pattern parameter. If you want it to be considered for addition here, open a PR!
 
-### cached_list
+### `cached_list`
 
 `:Telescope repo cached_list`
 
@@ -235,7 +278,6 @@ exports the `LOCATE_PATH` variable.
 #### TODO cached_list
 
 Provide instructions on how to setup periodic update of the locate database.
-
 
 #### Troubleshooting
 
