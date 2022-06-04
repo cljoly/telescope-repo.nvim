@@ -79,33 +79,38 @@ local function check_cached_list_cmd()
     end
 end
 
-local function check_previewer()
+local function check_previewer_md()
     local markdown_bin = utils.find_markdown_previewer_for_document("test_doc.md")
     if not markdown_bin then
         health.report_error("No markdown previewer found, the extension will not work properly")
-    else
-        health.report_ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
-
-        if markdown_bin[1] ~= utils._markdown_previewer[1][1] then
-            health.report_warn("Install `" .. utils._markdown_previewer[1][1] .. "` for a better preview of markdown files")
-        end
+        return
     end
+    health.report_ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
 
+    local first = utils._markdown_previewer[1][1]
+    if markdown_bin[1] ~= first then
+        health.report_warn("Install `" .. first .. "` for a better preview of markdown files")
+    end
+end
+
+local function check_previewer_generic()
     local generic_bin = utils.find_generic_previewer_for_document("test_doc")
     if not generic_bin then
         health.report_error("No markdown previewer found, the extension will not work properly")
-    else
-        health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
+        return
+    end
+    health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
 
-        if generic_bin[1] ~= utils._generic_previewer[1][1] then
-            health.report_warn("Install `" .. utils._generic_previewer[1][1] .. "` for a better preview of other files")
-        end
+    local first = utils._generic_previewer[1][1]
+    if generic_bin[1] ~= first then
+        health.report_warn("Install `" .. first .. "` for a better preview of other files")
     end
 end
 
 M.check = function()
     -- Ordered from fastest to slowest
-    check_previewer()
+    check_previewer_generic()
+    check_previewer_md()
     check_cached_list_cmd()
     check_list_cmd()
 end
