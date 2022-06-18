@@ -9,7 +9,7 @@ local function find_binary(binaries)
             return vim.deepcopy(binary)
         end
     end
-    return ""
+    return nil
 end
 
 -- Find under what name fd is installed.
@@ -26,7 +26,9 @@ M._generic_previewer = { { "bat", "--style", "header,grid" }, { "cat" } }
 
 M.find_generic_previewer_for_document = function(doc)
     local l = find_binary(M._generic_previewer)
-    table.insert(l, doc)
+    if l then
+        table.insert(l, doc)
+    end
     return l
 end
 
@@ -35,7 +37,9 @@ vim.list_extend(M._markdown_previewer, M._generic_previewer)
 
 M.find_markdown_previewer_for_document = function(doc)
     local l = find_binary(M._markdown_previewer)
-    table.insert(l, doc)
+    if l then
+        table.insert(l, doc)
+    end
     return l
 end
 

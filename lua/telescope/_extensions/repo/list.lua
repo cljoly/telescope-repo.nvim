@@ -7,7 +7,7 @@ local utils = require("telescope._extensions.repo.utils")
 M.prepare_command = function(opts)
     opts = opts or {}
     opts.bin = opts.bin or utils.find_fd_binary()
-    if opts.bin == "" then
+    if not opts.bin then
         error("fd not found, is fd installed?")
     end
     opts.cwd = vim.env.HOME

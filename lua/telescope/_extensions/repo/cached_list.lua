@@ -7,7 +7,7 @@ local utils = require("telescope._extensions.repo.utils")
 M.prepare_command = function(opts)
     opts = opts or {}
     opts.bin = opts.bin or utils.find_locate_binary()
-    if opts.bin == "" then
+    if not opts.bin then
         error("Please install locate (or one of its alternatives)")
     end
     opts.cwd = vim.env.HOME
