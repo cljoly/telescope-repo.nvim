@@ -130,14 +130,21 @@ local function project_live_grep(opts)
     require("telescope.builtin").live_grep(opts)
 end
 
-local function call_picker(opts, command, prompt_title_supplement)
+local function call_picker(list_opts, command, prompt_title_supplement, user_opts)
+    if list_opts == nil then
+        error("Incorrect call to call_picker, list_opts should be specified to pass relevant options to the first picker")
+    end
+    if user_opts == nil then
+        error("Incorrect call to call_picker, user_opts should be specified to pass relevant options to the second picker")
+    end
+
     local prompt_title = "Git repositories"
     if prompt_title_supplement ~= nil then
         prompt_title = prompt_title .. prompt_title_supplement
     end
-    pickers.new(opts, {
+    pickers.new(list_opts, {
         prompt_title = prompt_title,
-        finder = finders.new_oneshot_job(command, opts),
+        finder = finders.new_oneshot_job(command, list_opts),
         previewer = previewers.new_termopen_previewer({
             get_command = function(entry)
                 local dir = Path:new(from_entry.path(entry))
@@ -156,7 +163,7 @@ local function call_picker(opts, command, prompt_title_supplement)
                 return utils.find_generic_previewer_for_document(doc.filename)
             end,
         }),
-        sorter = conf.file_sorter(opts),
+        sorter = conf.file_sorter(list_opts),
         attach_mappings = function(prompt_bufnr)
             actions_set.select:replace(function(_, type)
                 local entry = actions_state.get_selected_entry()
@@ -164,20 +171,20 @@ local function call_picker(opts, command, prompt_title_supplement)
                 if type == "default" then
                     actions._close(prompt_bufnr, false)
                     vim.schedule(function()
-                        project_files(vim.tbl_extend("force", opts, { cwd = dir }))
+                        project_files(vim.tbl_extend("force", user_opts, { cwd = dir }))
                     end)
                 end
                 if type == "vertical" then
                     actions._close(prompt_bufnr, false)
                     vim.schedule(function()
-                        project_live_grep(vim.tbl_extend("force", opts, { cwd = dir }))
+                        project_live_grep(vim.tbl_extend("force", list_opts, { cwd = dir }))
                     end)
                     return
                 end
                 if type == "tab" then
                     vim.cmd("tabe " .. dir)
                     vim.cmd("tcd " .. dir)
-                    project_files(vim.tbl_extend("force", opts, { cwd = dir }))
+                    project_files(vim.tbl_extend("force", list_opts, { cwd = dir }))
                     return
                 end
             end)
@@ -188,20 +195,22 @@ end
 
 -- List of repos built using locate (or variants)
 M.cached_list = function(opts)
-    opts = vim.tbl_deep_extend("force", r_config.values.cached_list or {}, opts or {})
-    opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_locate_wrapper, opts)
-    local locate_command = cached_list.prepare_command(opts)
+    local common_opts = opts or {}
+    local list_opts = vim.tbl_deep_extend("force", r_config.values.cached_list or {}, common_opts)
+    list_opts.entry_maker = t_utils.get_lazy_default(list_opts.entry_maker, gen_from_locate_wrapper, list_opts)
+    local locate_command = cached_list.prepare_command(list_opts)
 
-    call_picker(opts, locate_command, " (cached)")
+    call_picker(list_opts, locate_command, " (cached)", common_opts)
 end
 
 -- Always up to date list of repos built using fd
 M.list = function(opts)
-    opts = vim.tbl_deep_extend("force", r_config.values.list or {}, opts or {})
-    opts.entry_maker = t_utils.get_lazy_default(opts.entry_maker, gen_from_fd, opts)
-    local fd_command = list.prepare_command(opts)
+    local common_opts = opts or {}
+    local list_opts = vim.tbl_deep_extend("force", r_config.values.list or {}, common_opts)
+    list_opts.entry_maker = t_utils.get_lazy_default(list_opts.entry_maker, gen_from_fd, list_opts)
+    local fd_command = list.prepare_command(list_opts)
 
-    call_picker(opts, fd_command, " (built on the fly)")
+    call_picker(list_opts, fd_command, " (built on the fly)", common_opts)
 end
 
 return M
