@@ -142,55 +142,57 @@ local function call_picker(list_opts, command, prompt_title_supplement, user_opt
     if prompt_title_supplement ~= nil then
         prompt_title = prompt_title .. prompt_title_supplement
     end
-    pickers.new(list_opts, {
-        prompt_title = prompt_title,
-        finder = finders.new_oneshot_job(command, list_opts),
-        previewer = previewers.new_termopen_previewer({
-            get_command = function(entry)
-                local dir = Path:new(from_entry.path(entry))
-                local doc = search_markdown_readme(dir)
-                if doc then
-                    return utils.find_markdown_previewer_for_document(doc.filename)
-                end
-                doc = search_generic_readme(dir)
-                if not doc then
-                    -- TODO: doc may be previewed in a plain text. Can I use syntax highlight?
-                    doc = search_doc(dir)
-                end
-                if not doc then
-                    return { "echo", "" }
-                end
-                return utils.find_generic_previewer_for_document(doc.filename)
+    pickers
+        .new(list_opts, {
+            prompt_title = prompt_title,
+            finder = finders.new_oneshot_job(command, list_opts),
+            previewer = previewers.new_termopen_previewer({
+                get_command = function(entry)
+                    local dir = Path:new(from_entry.path(entry))
+                    local doc = search_markdown_readme(dir)
+                    if doc then
+                        return utils.find_markdown_previewer_for_document(doc.filename)
+                    end
+                    doc = search_generic_readme(dir)
+                    if not doc then
+                        -- TODO: doc may be previewed in a plain text. Can I use syntax highlight?
+                        doc = search_doc(dir)
+                    end
+                    if not doc then
+                        return { "echo", "" }
+                    end
+                    return utils.find_generic_previewer_for_document(doc.filename)
+                end,
+            }),
+            sorter = conf.file_sorter(list_opts),
+            attach_mappings = function(prompt_bufnr)
+                actions_set.select:replace(function(_, type)
+                    local entry = actions_state.get_selected_entry()
+                    local dir = from_entry.path(entry)
+                    if type == "default" then
+                        actions._close(prompt_bufnr, false)
+                        vim.schedule(function()
+                            project_files(vim.tbl_extend("force", user_opts, { cwd = dir }))
+                        end)
+                    end
+                    if type == "vertical" then
+                        actions._close(prompt_bufnr, false)
+                        vim.schedule(function()
+                            project_live_grep(vim.tbl_extend("force", list_opts, { cwd = dir }))
+                        end)
+                        return
+                    end
+                    if type == "tab" then
+                        vim.cmd("tabe " .. dir)
+                        vim.cmd("tcd " .. dir)
+                        project_files(vim.tbl_extend("force", list_opts, { cwd = dir }))
+                        return
+                    end
+                end)
+                return true
             end,
-        }),
-        sorter = conf.file_sorter(list_opts),
-        attach_mappings = function(prompt_bufnr)
-            actions_set.select:replace(function(_, type)
-                local entry = actions_state.get_selected_entry()
-                local dir = from_entry.path(entry)
-                if type == "default" then
-                    actions._close(prompt_bufnr, false)
-                    vim.schedule(function()
-                        project_files(vim.tbl_extend("force", user_opts, { cwd = dir }))
-                    end)
-                end
-                if type == "vertical" then
-                    actions._close(prompt_bufnr, false)
-                    vim.schedule(function()
-                        project_live_grep(vim.tbl_extend("force", list_opts, { cwd = dir }))
-                    end)
-                    return
-                end
-                if type == "tab" then
-                    vim.cmd("tabe " .. dir)
-                    vim.cmd("tcd " .. dir)
-                    project_files(vim.tbl_extend("force", list_opts, { cwd = dir }))
-                    return
-                end
-            end)
-            return true
-        end,
-    }):find()
+        })
+        :find()
 end
 
 -- List of repos built using locate (or variants)
