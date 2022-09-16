@@ -251,7 +251,7 @@ This relies on a `locate` command to find repositories. This should be much fast
 
 #### Notes for MacOS
 
-`glocate` command used for caching on macos comes with gnu `findutils` which can be installed with
+`glocate` command used for caching on MacOS comes with gnu `findutils` which can be installed with
 ```bash
 brew install findutils
 ```
@@ -272,8 +272,21 @@ alias loaddb="gupdatedb --localpaths=$HOME --prunepaths=/Volumes --output=$HOME/
 ```
 
 After you have run `loaddb` the first time you need to reload the shell to make sure that it
-exports the `LOCATE_PATH` variable.
+exports the `LOCATE_PATH` variable. Then the following command should work:
 
+```
+lua require'telescope'.extensions.repo.cached_list()
+```
+
+If nothing is shown, even after a little while, try this:
+```
+lua require'telescope'.extensions.repo.cached_list{locate_opts={"-d", vim.env.HOME .. "/locatedb"}}
+```
+
+> *Note*: Installation and use of the plugin on systems other than GNU/Linux is community-maintained. Don't hesitate to open [a discussion][discuss-qa] or [a pull-request][pr] if something is not working!
+
+[discuss-qa]: https://github.com/cljoly/telescope-repo.nvim/discussions/categories/q-a
+[pr]: https://github.com/cljoly/telescope-repo.nvim/pulls
 
 #### TODO cached_list
 
