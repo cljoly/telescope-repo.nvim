@@ -24,7 +24,7 @@ end_insert -->
 # 🦘 telescope-repo.nvim: jump around the repositories in your filesystem, without any setup
 <!-- end_remove -->
 
-![Neovim version](https://img.shields.io/badge/Neovim-0.5-57A143?style=flat&logo=neovim) [![](https://img.shields.io/badge/powered%20by-riss-lightgrey)](https://cj.rs/riss) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cljoly/telescope-repo.nvim?color=darkgreen&sort=semver)
+![Neovim version](https://img.shields.io/badge/Neovim-0.7-57A143?style=flat&logo=neovim) [![](https://img.shields.io/badge/powered%20by-riss-lightgrey)](https://cj.rs/riss) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cljoly/telescope-repo.nvim?color=darkgreen&sort=semver)
 
 <!-- insert
 {{< rawhtml >}}
@@ -121,6 +121,9 @@ You can change the default argument given to subcommands (like [`list`](#list) o
           "value",
         },
       },
+      settings = {
+        auto_lcd = true,
+      }
     },
   },
 }

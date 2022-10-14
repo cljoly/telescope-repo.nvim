@@ -14,6 +14,7 @@ local t_utils = require("telescope.utils")
 local Path = require("plenary.path")
 
 -- Other modules in this plugin
+local autocmd_lcd = require("telescope._extensions.repo.autocmd_lcd")
 local utils = require("telescope._extensions.repo.utils")
 local list = require("telescope._extensions.repo.list")
 local cached_list = require("telescope._extensions.repo.cached_list")
@@ -132,10 +133,12 @@ end
 
 local function call_picker(list_opts, command, prompt_title_supplement, user_opts)
     if list_opts == nil then
-        error("Incorrect call to call_picker, list_opts should be specified to pass relevant options to the first picker")
+        error([[
+        Incorrect call to call_picker, list_opts should be specified to pass relevant options to the first picker]])
     end
     if user_opts == nil then
-        error("Incorrect call to call_picker, user_opts should be specified to pass relevant options to the second picker")
+        error([[
+        Incorrect call to call_picker, user_opts should be specified to pass relevant options to the second picker]])
     end
 
     local prompt_title = "Git repositories"
@@ -169,6 +172,10 @@ local function call_picker(list_opts, command, prompt_title_supplement, user_opt
                 actions_set.select:replace(function(_, type)
                     local entry = actions_state.get_selected_entry()
                     local dir = from_entry.path(entry)
+                    if autocmd_lcd.active and type ~= "" then
+                        autocmd_lcd.add_project(dir)
+                    end
+
                     if type == "default" then
                         actions._close(prompt_bufnr, false)
                         vim.schedule(function()
