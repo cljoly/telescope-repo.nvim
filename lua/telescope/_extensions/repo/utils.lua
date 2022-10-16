@@ -22,7 +22,7 @@ M.find_locate_binary = function()
     return find_binary({ "plocate", "lolcate", "glocate", "locate" })
 end
 
-M._generic_previewer = { { "bat", "--style", "header,grid" }, { "cat" } }
+M._generic_previewer = { { "bat", "--style", "header,grid" }, { "batcat", "--style", "header,grid" }, { "cat" } }
 
 M.find_generic_previewer_for_document = function(doc)
     local l = find_binary(M._generic_previewer)
