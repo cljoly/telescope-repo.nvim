@@ -10,3 +10,6 @@ fmt:
 
 lint:
 	@luacheck lua/telescope
+
+tags:
+	@ctags -R . ~/.local/share/nvim/site/pack/*/*/*/lua/
