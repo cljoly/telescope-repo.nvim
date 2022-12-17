@@ -19,7 +19,7 @@ M.prepare_command = function(opts)
     -- .git file in them.
     local find_repo_opts = { "--hidden", "--case-sensitive", "--absolute-path" }
     local find_user_opts = opts.fd_opts or {}
-    local find_exec_opts = { "--exec", "echo", [[{//}]], ";" }
+    local find_exec_opts = opts. fd_exec_opts or { "--exec", "echo", [[{//}]], ";" }
 
     -- Expand '~'
     local search_dirs = {}
