@@ -191,12 +191,6 @@ Default value: `vim.fn.getcwd()`
 
 **This is a relatively advanced option that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions**
 
-This passes additional options to the command `fd` that generates the repository list. It is inserted like so:
-
-```
-fd [set of default options] [fd_opts] --exec [some default command] [pattern] …
-```
-
 ##### Example
 
 Let’s say you have a git repository `S` inside another git repository `M` (for instance because of [#5](https://github.com/cljoly/telescope-repo.nvim/issues/5)), but `S` is in a directory that’s ignored in the `.gitignore` in `M`. `S` wouldn’t appear in the Telescope list of this extension by default, because it is ignored (`.gitignore` are taken into account by default).
@@ -208,6 +202,30 @@ To avoid taking into account the `.gitignore`, we need to pass `--no-ignore-vcs`
 ```
 
 This will list `M` and `S` in the Telescope output! The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
+
+##### `find_exec_opts`
+
+**This is mainly to accommodate different OS shells like PowerShell on windows. Only use this if you know what you are doing**
+
+This passes additional exec options to the command `fd` that generates the repository list. It is inserted like so:
+
+```
+fd [set of default options] [fd_opts] --exec [find_exec_opts] [pattern] …
+```
+
+##### Example
+
+Let’s say you try to use telescope repo in windows powershell, then the command could be something like this to make it work
+
+```
+fd --exec powershell /C "echo {//}" ; ^\.git$
+```
+
+This should be equivalent to
+
+```
+:lua require'telescope'.extensions.repo.list{fd_exec_opts={'powershell /C "echo {//}"'}}
+```
 
 ##### `search_dirs`
 
