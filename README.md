@@ -187,17 +187,17 @@ Transform the result paths into relative ones with this value as the base dir.
 
 Default value: `vim.fn.getcwd()`
 
-##### `fd_opts`
+##### `fd_opts` & `find_exec_opts`
 
-**This is a relatively advanced option that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions**
+**These are relatively advanced options that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions of the plugin**
 
-This passes additional options to the command `fd` that generates the repository list. It is inserted like so:
+This passes additional exec options to the command `fd` that generates the repository list. It is inserted like so:
 
 ```
-fd [set of default options] [fd_opts] --exec [some default command] [pattern] …
+fd [set of default options] [fd_opts] --exec [find_exec_opts] [pattern] …
 ```
 
-##### Example
+###### `fd_opts` Example
 
 Let’s say you have a git repository `S` inside another git repository `M` (for instance because of [#5](https://github.com/cljoly/telescope-repo.nvim/issues/5)), but `S` is in a directory that’s ignored in the `.gitignore` in `M`. `S` wouldn’t appear in the Telescope list of this extension by default, because it is ignored (`.gitignore` are taken into account by default).
 
@@ -207,7 +207,23 @@ To avoid taking into account the `.gitignore`, we need to pass `--no-ignore-vcs`
 :lua require'telescope'.extensions.repo.list{fd_opts={'--no-ignore-vcs'}}
 ```
 
-This will list `M` and `S` in the Telescope output! The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
+This will list `M` and `S` in the Telescope output. The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
+
+###### `fd_exec_opts` Example
+
+This is mainly to accommodate different OS shells like PowerShell on windows.
+
+Let’s say you try to use telescope repo in windows powershell, then the command could be something like this to make it work
+
+```
+fd --exec powershell /C "echo {//}" ; ^\.git$
+```
+
+To use an equivalent command with the plugin, run:
+
+```
+:lua require'telescope'.extensions.repo.list{fd_exec_opts={'powershell /C "echo {//}"'}}
+```
 
 ##### `search_dirs`
 
@@ -303,7 +319,7 @@ if you encounter any problems. If it’s not the case by default, you should aut
 
 Options are the similar to `repo list`, bearing in mind that we use `locate` instead of `fd`. Note that the following `list` options are not supported in `cached_list`:
 
-* `fd_opts`, as we don’t use `fd` with `cached_list`,
+* `fd_opts` and `fd_exec_opts`, as we don’t use `fd` with `cached_list`,
 * `search_dirs`, as `locate` does not accept a directory to search in.
 
 #### Examples
