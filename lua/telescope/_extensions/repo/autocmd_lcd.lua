@@ -38,7 +38,7 @@ function M.setup()
         callback = function()
             local path_or_file = vim.fn.expand("%")
             local project_path = find_project(path_or_file)
-            if project_paths then
+            if project_path then
                 vim.cmd("lcd " .. project_path)
             end
         end,
