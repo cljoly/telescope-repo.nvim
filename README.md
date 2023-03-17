@@ -396,6 +396,12 @@ To run the linter:
 make lint
 ```
 
+## Acknowledgement
+
+I would like to thank all the contributors to this plugin, as well as the developers of neovim and Telescope. Without them, none of this would be possible.
+
+Furthermore, thanks to [Migadu](https://www.migadu.com/) for offering a discounted service to support this project. It is not an endorsement by Migadu though.
+
 ## Stability
 
 We understand that you need a reliable plugin that never breaks. To this end, code changes are first tested on our machines in a separate `dev` branch and once we are reasonably confident that changes don’t have unintended side-effects, they get merged to the `master` branch, where a wider user-base will get the changes. We also often tag releases, holding a more mature, coherent set of changes. If you are especially sensitive to changes, instruct your package manager to install the version pointed by a particular tag and watch for new releases [on GitHub](https://github.blog/changelog/2018-11-27-watch-releases/) or [via RSS](https://ronaldsvilcins.com/2020/03/26/rss-feeds-for-your-github-releases-tags-and-activity/). Conversely, if you wish to live on the bleeding-edge, instruct your package manager to use the `dev` branch.
