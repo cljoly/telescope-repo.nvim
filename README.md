@@ -400,6 +400,8 @@ make lint
 
 I would like to thank all the contributors to this plugin, as well as the developers of neovim and Telescope. Without them, none of this would be possible.
 
+Thanks to *Code Smell* for demoing the plugin in [5 Terrific Neovim Telescope Extensions for 2022 🔭](https://youtu.be/indguFY7wJ0?t=267).
+
 Furthermore, thanks to [Migadu](https://www.migadu.com/) for offering a discounted service to support this project. It is not an endorsement by Migadu though.
 
 ## Stability
