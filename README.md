@@ -64,14 +64,9 @@ You need to add these in your plugin management system[^2]:
 'nvim-telescope/telescope.nvim'
 'cljoly/telescope-repo.nvim'
 ```
-And optionally, to load the extension:
+And optionally, to load the extension somewhere in your `init.lua`:
 ```lua
 require'telescope'.load_extension'repo'
-```
-
-A handy companion plugin is [vim-rooter](https://github.com/airblade/vim-rooter), as it’ll change the current directory according to the current file’s detected project (often, the root of the git repository). To get it to change each *buffer’s* directory, instead of the whole editor by default, add the following Lua to your configuration:
-```lua
-g['rooter_cd_cmd'] = 'lcd'
 ```
 
 ### Packer
@@ -84,6 +79,14 @@ use {
   requires = { {'nvim-lua/plenary.nvim'} }
 }
 ```
+
+### Companion Plugin: vim-rooter
+
+A handy companion plugin is [vim-rooter](https://github.com/airblade/vim-rooter), as it’ll change the current directory according to the current file’s detected project (often, the root of the git repository). To get it to change each *buffer’s* directory, instead of the whole editor by default, add the following Lua to your configuration:
+```lua
+vim.g['rooter_cd_cmd'] = 'lcd'
+```
+*Note*: the [`auto_lcd`](#auto_lcd) setting will integrate with vim-rooter, using it as a fallback for when Telescope-repo.nvim can’t find the project directory.
 
 ## External Dependencies
 
@@ -108,12 +111,16 @@ use {
 
 ### Global Configuration
 
-You can change the default argument given to subcommands (like [`list`](#list) or [`cached_list`](#cached_list)) using the telescope `setup` function with a table like this:
+You can change global settings and default arguments given to subcommands (like [`list`](#list) or [`cached_list`](#cached_list)) using the telescope `setup` function with a table like this:
 
 ```lua
+-- Inside require("telescope").setup { … }
 {
   extensions = {
     repo = {
+      settings = {
+        auto_lcd = true,
+      }
       <subcommand> = {
         <argument> = {
           "new",
@@ -121,15 +128,12 @@ You can change the default argument given to subcommands (like [`list`](#list) o
           "value",
         },
       },
-      settings = {
-        auto_lcd = true,
-      }
     },
   },
 }
 ```
 
-for instance, you could do:
+for instance, to search in a custom directory with the `list` command, you could do:
 
 ```lua
 require("telescope").setup {
@@ -150,7 +154,15 @@ require("telescope").setup {
 require("telescope").load_extension "repo"
 ```
 
-**Note**: make sure to have `require("telescope").load_extension "repo"` *after* the call to `require("telescope").setup {…}`, otherwise the global configuration won’t be taken into account.
+**Note**: make sure that `require("telescope").load_extension "repo"` is put *after* the call to `require("telescope").setup {…}` (or not present in `init.lua` at all), otherwise the global configuration won’t be taken into account.
+
+### Settings
+
+#### `auto_lcd`
+
+If this is set to `true`, the current directory will be set per buffer when we detect that we are inside a project that was selected during the current session.
+
+This integrates with [vim-rooter](#companion-plugin-vim-router): when vim-rooter is present, it is deactivated and used only as a fallback with the `:lcd` command.
 
 ### `list`
 

@@ -31,15 +31,26 @@ end
 -- Define autocmd to change the folder of the current file (with lcd).
 function M.setup()
     M.active = true
+    -- Deactivate autochdir
+    vim.opt.autochdir = false
+    -- Detect an active vim-rooter and use it only as a fallback
+    if vim.g.loaded_rooter == 1 then
+        vim.g.rooter_manual_only = 1
+        vim.g.rooter_cd_cmd = "lcd"
+    end
+
     -- Ensure we create only one autocmd, even if the function is called multiple times
     local autocmd_group = vim.api.nvim_create_augroup("telescope_repo_lcd", { clear = true })
 
-    vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    -- Events inspired by vim-rooter
+    vim.api.nvim_create_autocmd({ "BufNewFile", "BufEnter", "BufReadPost" }, {
         callback = function()
             local path_or_file = vim.fn.expand("%")
             local project_path = find_project(path_or_file)
-            if project_paths then
-                vim.cmd("lcd " .. project_path)
+            if project_path then
+                vim.cmd.lcd(project_path)
+            elseif vim.g.loaded_rooter == 1 then
+                vim.cmd.Rooter()
             end
         end,
         group = autocmd_group,

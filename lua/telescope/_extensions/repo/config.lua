@@ -2,9 +2,15 @@ local M = {}
 
 M.values = {}
 
+local default_config = {
+    settings = {
+        auto_lcd = true,
+    },
+}
+
 function M.setup(opts)
-    M.values = opts or {}
-    if M.values.settings and M.values.settings.auto_lcd then
+    M.values = vim.tbl_extend("keep", opts, default_config)
+    if M.values.settings.auto_lcd then
         require("telescope._extensions.repo.autocmd_lcd").setup()
     end
 end
