@@ -21,7 +21,7 @@ M.prepare_command = function(opts)
     local find_user_opts = opts.fd_opts or {}
     local find_exec_opts = {}
     if vim.fn.has("win32") or vim.fn.has("win64") then
-        find_exec_opts = { "--exec", "cmd", [[/C echo {//}]], ";" }
+        find_exec_opts = { "--exec", "powershell", [[echo {//}]], ";" }
     else
         find_exec_opts = { "--exec", "echo", [[{//}]], ";" }
     end
