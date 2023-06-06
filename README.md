@@ -119,8 +119,10 @@ You can change global settings and default arguments given to subcommands (like 
   extensions = {
     repo = {
       settings = {
-        auto_lcd = true,
-      }
+            enabled = true,
+            global_cd_for_first_project = true,
+            vimrooter_integration = true,
+      },
       <subcommand> = {
         <argument> = {
           "new",
@@ -160,9 +162,19 @@ require("telescope").load_extension "repo"
 
 #### `auto_lcd`
 
-If this is set to `true`, the current directory will be set per buffer when we detect that we are inside a project that was selected during the current session.
+```lua
+auto_lcd = {
+    enabled = true,
+    global_cd_for_first_project = true,
+    vimrooter_integration = true,
+},
+```
 
-This integrates with [vim-rooter](#companion-plugin-vim-router): when vim-rooter is present, it is deactivated and used only as a fallback with the `:lcd` command.
+If `enabled` is set to `true`, the current directory will be set per buffer when we detect that we are inside a project that was selected during the current session.
+
+If `global_cd_for_first_project` is `true`, then the first time the plugin is used to pick a project, the current directory will be changed to this project for the whole vim instance, not just for the current buffer.
+
+This integrates with [vim-rooter](#companion-plugin-vim-router) when `vimrooter_integration` is `true` and vim-rooter is present. Then, vim-rooter is deactivated and used only as a fallback, with the `:lcd` command.
 
 ### `list`
 

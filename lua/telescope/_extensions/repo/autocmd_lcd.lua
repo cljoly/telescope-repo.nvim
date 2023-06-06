@@ -29,12 +29,12 @@ local function find_project(path_or_file)
 end
 
 -- Define autocmd to change the folder of the current file (with lcd).
-function M.setup()
+function M.setup(opts)
     M.active = true
     -- Deactivate autochdir
     vim.opt.autochdir = false
     -- Detect an active vim-rooter and use it only as a fallback
-    if vim.g.loaded_rooter == 1 then
+    if opts.vimrooter_integration and vim.g.loaded_rooter == 1 then
         vim.g.rooter_manual_only = 1
         vim.g.rooter_cd_cmd = "lcd"
     end
@@ -48,7 +48,12 @@ function M.setup()
             local path_or_file = vim.fn.expand("%")
             local project_path = find_project(path_or_file)
             if project_path then
-                vim.cmd.lcd(project_path)
+                if opts.global_cd_for_first_project and #project_paths then
+                    -- Global cd on first call of the extension
+                    vim.cmd.cd(project_path)
+                else
+                    vim.cmd.lcd(project_path)
+                end
             elseif vim.g.loaded_rooter == 1 then
                 vim.cmd.Rooter()
             end
