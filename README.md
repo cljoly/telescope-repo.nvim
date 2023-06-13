@@ -211,7 +211,9 @@ This will list `M` and `S` in the Telescope output. The downside is that listing
 
 ###### `fd_exec_opts` Example
 
-This is mainly to accommodate different OS shells like PowerShell on windows.
+This is mainly to accommodate different OS shells like PowerShell on Windows.
+
+> *Note* By default, windows should be automatically detected and you shouldn’t need to do this.
 
 Let’s say you try to use telescope repo in windows powershell, then the command could be something like this to make it work
 
