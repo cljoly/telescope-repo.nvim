@@ -19,7 +19,13 @@ M.prepare_command = function(opts)
     -- .git file in them.
     local find_repo_opts = { "--hidden", "--case-sensitive", "--absolute-path" }
     local find_user_opts = opts.fd_opts or {}
-    local find_exec_opts = opts.fd_exec_opts or { "--exec", "echo", [[{//}]], ";" }
+    local find_exec_opts = opts.fd_exec_opts or (function()
+        if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+            return { "--exec", "powershell", [[echo {//}]], ";" }
+        else
+            return { "--exec", "echo", [[{//}]], ";" }
+        end
+    end)()
 
     -- Expand '~'
     local search_dirs = {}
