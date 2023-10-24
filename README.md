@@ -291,17 +291,13 @@ lua require'telescope'.extensions.repo.cached_list{locate_opts={"-d", vim.env.HO
 [discuss-qa]: https://github.com/cljoly/telescope-repo.nvim/discussions/categories/q-a
 [pr]: https://github.com/cljoly/telescope-repo.nvim/pulls
 
-#### TODO cached_list
-
-Provide instructions on how to setup periodic update of the locate database.
-
 #### Troubleshooting
 
 You should try to run:
 ```
 sudo updatedb
 ```
-if you encounter any problems. If it’s not the case by default, you should automate such index update with for instance `cron` or `systemd-timers`. See https://wiki.archlinux.org/title/Locate.
+if you encounter any problems. If it’s not the case by default, you should automate such index update with for instance `cron` or `systemd-timers`. See https://wiki.archlinux.org/title/Locate and [this discussion](https://github.com/cljoly/telescope-repo.nvim/discussions/64) for various ways to automate this.
 
 #### Options
 
