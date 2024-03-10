@@ -17,7 +17,7 @@ M.prepare_command = function(opts)
 
     -- Don’t filter only on directories with fd as git worktrees actually have a
     -- .git file in them.
-    local find_repo_opts = { "--hidden", "--case-sensitive", "--absolute-path" }
+    local find_repo_opts = { "--hidden", "--no-ignore-vcs", "--case-sensitive", "--absolute-path" }
     local find_user_opts = opts.fd_opts or {}
     local find_exec_opts = { "--exec", "echo", [[{//}]], ";" }
 
