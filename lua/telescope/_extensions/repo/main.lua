@@ -67,6 +67,9 @@ local function gen_from_fd(opts)
         items = { {} },
     })
 
+    -- This prevents opts.cwd from changing later when it’s called in the
+    -- display function
+    local cwd = opts.cwd
     local function make_display(entry)
         local dir = (function(path)
             if path == Path.path.root() then
@@ -83,8 +86,8 @@ local function gen_from_fd(opts)
                 return p:shorten()
             end
 
-            if vim.startswith(path, opts.cwd) and path ~= opts.cwd then
-                return Path:new(p):make_relative(opts.cwd)
+            if vim.startswith(path, cwd) and path ~= cwd then
+                return Path:new(p):make_relative(cwd)
             end
 
             if vim.startswith(path, os_home) then
