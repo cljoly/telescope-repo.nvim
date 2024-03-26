@@ -71,6 +71,7 @@ local function gen_from_fd(opts)
     -- display function
     local cwd = opts.cwd
     local function make_display(entry)
+        if not cwd then cwd = opts.cwd end
         local dir = (function(path)
             if path == Path.path.root() then
                 return path
