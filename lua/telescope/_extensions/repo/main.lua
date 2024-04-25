@@ -71,6 +71,11 @@ local function gen_from_fd(opts)
     -- display function
     local cwd = opts.cwd
     local function make_display(entry)
+        -- The value `opts.cwd` might have been nil when it was fixed. This
+        -- resets it if it was nil.
+        if not cwd then
+            cwd = opts.cwd
+        end
         local dir = (function(path)
             if path == Path.path.root() then
                 return path
