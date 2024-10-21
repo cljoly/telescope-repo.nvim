@@ -250,7 +250,19 @@ Is your favorite SCM missing? It should be straightforward to support it by chan
 
 This relies on a `locate` command to find repositories. This should be much faster than the `list` command, as it relies on a pre-built index but results may be stalled.
 
-*Note*: at this point, the plugin does not manage index update. Updating the index often requires to run a command like `updatedb` as root.
+#### General Notes for `updatedb`
+
+At this point, the plugin does not manage index update.
+
+Updating the index often requires to run a command like `updatedb` as root. If the cached_list command does not return anything, it might be due to the configuration of the `updatedb` command. You can run `sudo updatedb -v --debug-pruning` to see if the directories you expect are indexed. You should see lines like the following if a repository named "rusqlie_migration" is indexed:
+
+```
+/home/cjoly/worktree/rusqlite/rusqlite_migration/Cargo.toml
+/home/cjoly/worktree/rusqlite/rusqlite_migration/README.md
+/home/cjoly/worktree/rusqlite/rusqlite_migration/.git
+```
+
+You might need to tweak the settings in the file `/etc/updatedb.conf`. The [corresponding manpage](https://man.archlinux.org/man/updatedb.conf.5) may be useful as well.
 
 #### Notes for MacOS
 
