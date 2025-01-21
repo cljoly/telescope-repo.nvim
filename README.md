@@ -298,7 +298,8 @@ If nothing is shown, even after a little while, try this:
 lua require'telescope'.extensions.repo.cached_list{locate_opts={"-d", vim.env.HOME .. "/locatedb"}}
 ```
 
-> *Note*: Installation and use of the plugin on systems other than GNU/Linux is community-maintained. Don't hesitate to open [a discussion][discuss-qa] or [a pull-request][pr] if something is not working!
+> [!WARNING]
+> Installation and use of the plugin on systems other than GNU/Linux is community-maintained. Don't hesitate to open [a discussion][discuss-qa] or [a pull-request][pr] if something is not working!
 
 [discuss-qa]: https://github.com/cljoly/telescope-repo.nvim/discussions/categories/q-a
 [pr]: https://github.com/cljoly/telescope-repo.nvim/pulls
