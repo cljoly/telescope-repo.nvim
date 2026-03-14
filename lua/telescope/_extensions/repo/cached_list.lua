@@ -22,7 +22,7 @@ M.prepare_command = function(opts)
         locate_arg = "-b"
     end
 
-    local locate_command = vim.tbl_flatten({ opts.bin, locate_opts, locate_arg, repo_pattern })
+    local locate_command = vim.iter({ opts.bin, locate_opts, locate_arg, repo_pattern }):flatten():totable()
 
     log.trace("locate_command: " .. vim.inspect(locate_command))
 

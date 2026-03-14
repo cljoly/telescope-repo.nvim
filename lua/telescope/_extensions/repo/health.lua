@@ -70,7 +70,7 @@ local function check_cached_list_cmd()
         if locate_bin == "lolcate" then
             command_with_args = { locate_bin, "--info" }
         else
-            command_with_args = vim.tbl_flatten({ command_with_args, { "-l", tostring(max_repo) } })
+            command_with_args = vim.iter({ command_with_args, { "-l", tostring(max_repo) } }):flatten():totable()
         end
 
         find_repos(opts, command_with_args, ":Telescope repo cached_list")

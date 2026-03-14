@@ -32,7 +32,7 @@ M.prepare_command = function(opts)
     table.insert(fd_command, find_exec_opts)
     table.insert(fd_command, repo_pattern)
     table.insert(fd_command, search_dirs)
-    fd_command = vim.tbl_flatten(fd_command)
+    fd_command = vim.iter(fd_command):flatten():totable()
     log.trace("fd command: " .. vim.inspect(fd_command))
 
     return fd_command
