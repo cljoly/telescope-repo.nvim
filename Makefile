@@ -1,9 +1,11 @@
-.PHONY: test, fmt, lint
+.PHONY: test fmt lint test_ci
 
 all: test lint
 
+test: test_ci
+
 test_ci:
-	@nvim --headless -c "PlenaryBustedDirectory lua/tests/ {}"
+	@nvim --clean --headless -c "PlenaryBustedDirectory lua/tests/ {}" -c "qa!"
 
 fmt:
 	@stylua lua
