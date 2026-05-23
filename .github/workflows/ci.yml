@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-24.04
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find plocate
           - os: ubuntu-24.04
@@ -20,7 +20,7 @@ jobs:
             manager: sudo apt-get
             packages: -y fd-find plocate
           - os: macos-latest
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz
             manager: brew
             packages: fd
           - os: macos-latest
