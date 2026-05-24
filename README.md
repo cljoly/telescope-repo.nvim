@@ -24,7 +24,7 @@ end_insert -->
 # 🦘 telescope-repo.nvim: jump around the repositories in your filesystem, without any setup
 <!-- end_remove -->
 
-![Neovim version](https://img.shields.io/badge/Neovim-0.7+-57A143?style=flat&logo=neovim) [![](https://img.shields.io/badge/powered%20by-riss-lightgrey)](https://cj.rs/riss) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cljoly/telescope-repo.nvim?color=darkgreen&sort=semver) ![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fd.cj.rs%2Fnvim%2Ftelescope-repo.json&cacheSeconds=90000)
+![Neovim version](https://img.shields.io/badge/Neovim-0.10+-57A143?style=flat&logo=neovim) [![](https://img.shields.io/badge/powered%20by-riss-lightgrey)](https://cj.rs/riss) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cljoly/telescope-repo.nvim?color=darkgreen&sort=semver) ![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fd.cj.rs%2Fnvim%2Ftelescope-repo.json&cacheSeconds=90000)
 
 <!-- insert
 {{< rawhtml >}}
@@ -187,17 +187,17 @@ Transform the result paths into relative ones with this value as the base dir.
 
 Default value: `vim.fn.getcwd()`
 
-##### `fd_opts`
+##### `fd_opts` & `find_exec_opts`
 
-**This is a relatively advanced option that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions**
+**These are relatively advanced options that you should use with caution. There is no guarantee that a particular set of options would work the same across multiple versions of the plugin**
 
-This passes additional options to the command `fd` that generates the repository list. It is inserted like so:
+This passes additional exec options to the command `fd` that generates the repository list. It is inserted like so:
 
 ```
-fd [set of default options] [fd_opts] --exec [some default command] [pattern] …
+fd [set of default options] [fd_opts] --exec [find_exec_opts] [pattern] …
 ```
 
-##### Example
+###### `fd_opts` Example
 
 Let’s say you have a git repository `S` inside another git repository `M` (for instance because of [#5](https://github.com/cljoly/telescope-repo.nvim/issues/5)), but `S` is in a directory that’s ignored in the `.gitignore` in `M`. `S` wouldn’t appear in the Telescope list of this extension by default, because it is ignored (`.gitignore` are taken into account by default).
 
@@ -207,7 +207,25 @@ To avoid taking into account the `.gitignore`, we need to pass `--no-ignore-vcs`
 :lua require'telescope'.extensions.repo.list{fd_opts={'--no-ignore-vcs'}}
 ```
 
-This will list `M` and `S` in the Telescope output! The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
+This will list `M` and `S` in the Telescope output. The downside is that listing repositories will be a little longer, as we don’t skip the git-ignored files anymore.
+
+###### `fd_exec_opts` Example
+
+This is mainly to accommodate different OS shells like PowerShell on Windows.
+
+> *Note* By default, windows should be automatically detected and you shouldn’t need to do this.
+
+Let’s say you try to use telescope repo in windows powershell, then the command could be something like this to make it work
+
+```
+fd --exec powershell /C "echo {//}" ; ^\.git$
+```
+
+To use an equivalent command with the plugin, run:
+
+```
+:lua require'telescope'.extensions.repo.list{fd_exec_opts={'powershell /C "echo {//}"'}}
+```
 
 ##### `search_dirs`
 
@@ -316,7 +334,7 @@ if you encounter any problems. If it’s not the case by default, you should aut
 
 Options are the similar to `repo list`, bearing in mind that we use `locate` instead of `fd`. Note that the following `list` options are not supported in `cached_list`:
 
-* `fd_opts`, as we don’t use `fd` with `cached_list`,
+* `fd_opts` and `fd_exec_opts`, as we don’t use `fd` with `cached_list`,
 * `search_dirs`, as `locate` does not accept a directory to search in.
 
 #### Examples
@@ -420,6 +438,16 @@ We understand that you need a reliable plugin that never breaks. To this end, co
 [^2]: See also [Stability](#stability)
 
 ## Changelog
+
+### 0.4.0
+
+* Require nvim 0.10+
+* [Allow storing settings](#global-configuration) in telescope global table
+* Add a feature to switch to the project directory. This is experimental, gated behind the `auto_lcd` setting (see [the global configuration section](#global-configuration) for an example)
+* Add support for `vim.health` reporting
+* Expand unit tests
+* Add .editorconfig
+* Misc. fixes, see full commit history
 
 ### 0.3.0
 

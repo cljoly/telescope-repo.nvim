@@ -4,7 +4,7 @@ local fallback_error = { "Falling back to `:Telescope repo list`, but this behav
 
 return require("telescope").register_extension({
     health = function()
-        require("telescope._extensions.repo.health").check()
+        require("telescope._extensions.repo.health_utils").check()
     end,
     setup = function(opts)
         require("telescope._extensions.repo.config").setup(opts)

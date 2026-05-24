@@ -17,9 +17,16 @@ M.prepare_command = function(opts)
 
     -- Don’t filter only on directories with fd as git worktrees actually have a
     -- .git file in them.
-    local find_repo_opts = { "--hidden", "--no-ignore-vcs", "--case-sensitive", "--absolute-path" }
+    local find_repo_opts = { "--prune", "--hidden", "--no-ignore-vcs", "--case-sensitive", "--absolute-path" }
     local find_user_opts = opts.fd_opts or {}
-    local find_exec_opts = { "--exec", "echo", [[{//}]], ";" }
+    local find_exec_opts = opts.fd_exec_opts
+        or (function()
+            if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+                return { "--exec", "powershell", [[echo {//}]], ";" }
+            else
+                return { "--exec", "echo", [[{//}]], ";" }
+            end
+        end)()
 
     -- Expand '~'
     local search_dirs = {}
@@ -32,7 +39,7 @@ M.prepare_command = function(opts)
     table.insert(fd_command, find_exec_opts)
     table.insert(fd_command, repo_pattern)
     table.insert(fd_command, search_dirs)
-    fd_command = vim.tbl_flatten(fd_command)
+    fd_command = vim.iter(fd_command):flatten():totable()
     log.trace("fd command: " .. vim.inspect(fd_command))
 
     return fd_command

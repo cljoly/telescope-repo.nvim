@@ -11,27 +11,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+          - os: ubuntu-latest
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find mlocate
-          - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/v0.7.0/nvim-linux64.tar.gz
+            packages: -y fd-find plocate
+          - os: ubuntu-24.04
+            url: https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find mlocate
-          - os: macos-10.15
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+            packages: -y fd-find plocate
+          - os: macos-latest
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz
             manager: brew
             packages: fd
-          - os: macos-10.15
-            url: https://github.com/neovim/neovim/releases/download/v0.7.0/nvim-macos.tar.gz
+          - os: macos-latest
+            url: https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-macos-x86_64.tar.gz
             manager: brew
             packages: fd
     steps:
       - uses: actions/checkout@v2
       - run: date +%F > todays-date
       - name: Restore from todays cache
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
