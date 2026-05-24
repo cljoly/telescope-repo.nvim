@@ -426,6 +426,16 @@ We understand that you need a reliable plugin that never breaks. To this end, co
 
 ## Changelog
 
+### 0.4.0
+
+* Require nvim 0.10+
+* [Allow storing settings](#global-configuration) in telescope global table
+* Add a feature to switch to the project directory. This is experimental, gated behind the `auto_lcd` setting (see [the global configuration section](#global-configuration) for an example)
+* Add support for `vim.health` reporting
+* Expand unit tests
+* Add .editorconfig
+* Misc. fixes, see full commit history
+
 ### 0.3.0
 
 * Add support for `lolcate-rs` as a `cached_list` provider
