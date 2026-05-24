@@ -16,7 +16,7 @@ jobs:
             manager: sudo apt-get
             packages: -y fd-find plocate
           - os: ubuntu-24.04
-            url: https://github.com/neovim/neovim/releases/download/v0.7.0/nvim-linux64.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find plocate
           - os: macos-latest
@@ -24,7 +24,7 @@ jobs:
             manager: brew
             packages: fd
           - os: macos-latest
-            url: https://github.com/neovim/neovim/releases/download/v0.7.0/nvim-macos.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-macos-x86_64.tar.gz
             manager: brew
             packages: fd
     steps:
