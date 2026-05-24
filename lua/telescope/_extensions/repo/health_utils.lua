@@ -4,9 +4,6 @@ local utils = require("telescope._extensions.repo.utils")
 local list = require("telescope._extensions.repo.list")
 local cached_list = require("telescope._extensions.repo.cached_list")
 
--- TODO Keep only vim.health once nvim 0.8 is required
-local health = vim.health or require("health")
-
 local Job = require("plenary.job")
 local max_repo = 2
 
@@ -26,9 +23,9 @@ local function find_repos(_opts, cmd_with_args, telescope_cmd)
 
     if j.code == 0 then
         local some_repos = vim.list_slice(j:result(), 1, max_repo)
-        health.report_info("Repos found for `" .. telescope_cmd .. "`:\n" .. table.concat(some_repos, ", ") .. "...")
+        vim.health.info("Repos found for `" .. telescope_cmd .. "`:\n" .. table.concat(some_repos, ", ") .. "...")
     else
-        health.report_error(
+        vim.health.error(
             "`"
                 .. telescope_cmd
                 .. "` was unsuccessful. Exit code: "
@@ -47,20 +44,20 @@ end
 local function check_list_cmd()
     local fd_bin = utils.find_fd_binary()
     if fd_bin then
-        health.report_ok("fd: found `" .. fd_bin .. "`\n" .. get_version(fd_bin))
+        vim.health.ok("fd: found `" .. fd_bin .. "`\n" .. get_version(fd_bin))
 
         local opts = {}
         local command_with_args = list.prepare_command(opts)
         find_repos(opts, command_with_args, ":Telescope repo list")
     else
-        health.report_error("`list` will not function without [fd](https://github.com/sharkdp/fd)")
+        vim.health.error("`list` will not function without [fd](https://github.com/sharkdp/fd)")
     end
 end
 
 local function check_cached_list_cmd()
     local locate_bin = utils.find_locate_binary()
     if locate_bin then
-        health.report_ok("locate: found `" .. locate_bin .. "`\n" .. get_version(locate_bin))
+        vim.health.ok("locate: found `" .. locate_bin .. "`\n" .. get_version(locate_bin))
 
         local opts = {}
 
@@ -75,35 +72,35 @@ local function check_cached_list_cmd()
 
         find_repos(opts, command_with_args, ":Telescope repo cached_list")
     else
-        health.report_error("`cached_list` will not function without locate")
+        vim.health.error("`cached_list` will not function without locate")
     end
 end
 
 local function check_previewer_md()
     local markdown_bin = utils.find_markdown_previewer_for_document("test_doc.md")
     if not markdown_bin then
-        health.report_error("No markdown previewer found, the extension will not work properly")
+        vim.health.error("No markdown previewer found, the extension will not work properly")
         return
     end
-    health.report_ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
+    vim.health.ok("Will use `" .. markdown_bin[1] .. "` to preview markdown READMEs")
 
     local first = utils._markdown_previewer[1][1]
     if markdown_bin[1] ~= first then
-        health.report_warn("Install `" .. first .. "` for a better preview of markdown files")
+        vim.health.warn("Install `" .. first .. "` for a better preview of markdown files")
     end
 end
 
 local function check_previewer_generic()
     local generic_bin = utils.find_generic_previewer_for_document("test_doc")
     if not generic_bin then
-        health.report_error("No markdown previewer found, the extension will not work properly")
+        vim.health.error("No markdown previewer found, the extension will not work properly")
         return
     end
-    health.report_ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
+    vim.health.ok("Will use `" .. generic_bin[1] .. "` to preview non-markdown READMEs")
 
     local first = utils._generic_previewer[1][1]
     if generic_bin[1] ~= first then
-        health.report_warn("Install `" .. first .. "` for a better preview of other files")
+        vim.health.warn("Install `" .. first .. "` for a better preview of other files")
     end
 end
 
