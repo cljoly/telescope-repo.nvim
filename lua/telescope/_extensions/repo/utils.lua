@@ -1,6 +1,9 @@
 local M = {}
 
--- Find the first executable in binaries that can be found in the PATH
+---Find the first executable in binaries that can be found in the PATH
+---@param binaries string[]
+---@return string|nil
+---@overload fun(binaries: string[][]): string[]
 local function find_binary(binaries)
     for _, binary in ipairs(binaries) do
         if type(binary) == "string" and vim.fn.executable(binary) == 1 then
@@ -22,6 +25,7 @@ M.find_locate_binary = function()
     return find_binary({ "plocate", "lolcate", "glocate", "locate" })
 end
 
+---@type string[][]
 M._generic_previewer = { { "bat", "--style", "header,grid" }, { "batcat", "--style", "header,grid" }, { "cat" } }
 
 M.find_generic_previewer_for_document = function(doc)
@@ -32,6 +36,7 @@ M.find_generic_previewer_for_document = function(doc)
     return l
 end
 
+---@type string[][]
 M._markdown_previewer = { { "glow", "-p" } }
 vim.list_extend(M._markdown_previewer, M._generic_previewer)
 

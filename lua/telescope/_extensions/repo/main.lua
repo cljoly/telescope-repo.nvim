@@ -205,7 +205,8 @@ local function call_picker(list_opts, command, prompt_title_supplement, user_opt
         :find()
 end
 
--- List of repos built using locate (or variants)
+---List of repos built using locate (or variants)
+---@param opts CachedListOpts
 M.cached_list = function(opts)
     local common_opts = opts or {}
     local list_opts = vim.tbl_deep_extend("force", r_config.values.cached_list or {}, common_opts)
@@ -215,7 +216,8 @@ M.cached_list = function(opts)
     call_picker(list_opts, locate_command, " (cached)", common_opts)
 end
 
--- Always up to date list of repos built using fd
+---Always up to date list of repos built using fd
+---@param opts ListOpts
 M.list = function(opts)
     local common_opts = opts or {}
     local list_opts = vim.tbl_deep_extend("force", r_config.values.list or {}, common_opts)

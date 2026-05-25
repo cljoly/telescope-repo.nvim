@@ -3,7 +3,9 @@ local M = {}
 local log = require("telescope.log")
 local utils = require("telescope._extensions.repo.utils")
 
--- Prepare locate command and change opts accordingly
+--- Prepare locate command and change opts accordingly
+---@param opts CachedListOpts
+---@return command
 M.prepare_command = function(opts)
     opts = opts or {}
     opts.bin = opts.bin or utils.find_locate_binary()
